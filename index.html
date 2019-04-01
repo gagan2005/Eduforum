@@ -10,11 +10,16 @@
     <title>Portfolios</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css">
-
+    
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script> 
+   
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
@@ -92,6 +97,12 @@
                 </div>
             </a>
         </div> -->
+
+        <form method="post">
+            <textarea id="summernote" name="editordata"></textarea>
+          </form>
+
+          <button class="btn" onclick="postData()"></button>
     </main>
 
 
@@ -114,6 +125,8 @@
             messagingSenderId: "649916051517"
         };
         firebase.initializeApp(config);
+
+        
     </script>
 
     <script src="main.js"></script>
