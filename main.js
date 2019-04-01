@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems);
 });
+var data = [];
 
 const postTemplate = "<div id=post>";
+fetchData();
 
 
 // firebase.initializeApp({
@@ -20,7 +22,9 @@ $(document).ready(function () {
     $('#summernote').summernote();
 });
 
-var data = [];
+
+
+
 
 
 function post(ih, ts) {
@@ -32,15 +36,26 @@ function post(ih, ts) {
 
 function updateUI() {
 
+    for(var i=0;i<data.length;i++)
+    {
+        var ih=postTemplate+data[i].html+"</div>";
+        console.log(ih);
+        var neww=$(ih);
+        neww.appendTo("#holder");
+
+    }
 }
 
 function fetchData() {
-    db.collection("adminposts").get().then(function (querySnapshot) {
+    db.collection("new").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-
+            console.log("fetched succesfully");
             data.push(doc.data());
         });
+        updateUI();
     });
+
+    
 }
 
 
