@@ -1,0 +1,43 @@
+.brand-logo {
+  left: 10px;
+}
+
+.user-icon {
+  width: 50px;
+  position: relative;
+  top: 5px;
+  margin-right: 5px;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.card {
+  margin: 10px;
+  display: inline-block;
+  max-width: 300px;
+}
+
+.form-panel {
+  margin: 3vh 3vw;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.break-word {
+  overflow-wrap: break-word;
+}
+
+.profile-card {
+  border-radius: 5px;
+  padding: 1%;
+}
