@@ -44,4 +44,20 @@ main {
 
 .post-holder {
   margin: 1vh 1vw;
+  padding-bottom: 0px;
+}
+
+.comment-container {
+	background-color: #eee;
+	border-radius: 3px;
+	padding: 2% 1%;
+	margin-bottom: 3px;
+}
+
+.post-footer {
+	margin-bottom: 0px;
+}
+
+.comment-user-pic {
+	
 }

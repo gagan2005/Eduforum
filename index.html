@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!-- test -->
+
 <head>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -10,20 +11,20 @@
     <title>Portfolios</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    
+
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css">
-    
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script> 
-   
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
+
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
-<body>
+<body class="flow-text">
     <!-- Header -->
     <header>
         <div class="navbar-fixed">
@@ -100,14 +101,55 @@
 
         <form method="post">
             <textarea id="summernote" name="editordata"></textarea>
-          </form>
+        </form>
 
-          <button class="btn" onclick="postData()"></button>
+        <button class="btn" onclick="postData()"></button>
 
-          <div id="holder"
-          
-          
-          ></div>
+        <div id="holder">
+            <!-- sample post start -->
+            <div class='post-holder card-panel'>
+                <div class="post-content">
+                    <h2>Lipsum</h2>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip
+                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                    dolore eu
+                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.
+                </div>
+
+                <div>
+                    <h4>Comments</h4>
+                    <div class="comment-container row valign-wrapper">
+                        <img src="user-placeholder.png" class="comment-user-pic col s2 m1">
+                        <div class="comment-content col s10">
+                            there is a cow
+                        </div>
+                    </div>
+                    <div class="comment-container row valign-wrapper">
+                        <img src="user-placeholder.png" class="comment-user-pic col s2 m1">
+                        <div class="comment-content col s10">
+                            another cow
+                        </div>
+                    </div>
+                    <div class="row valign-wrapper">
+                        <div class="input-field col s10 m11">
+                            <textarea id="textarea1" class="materialize-textarea"></textarea>
+                            <label for="textarea1">Write a comment</label>
+                        </div>
+                        <div class="col s2 m1">
+                            <a class="waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-footer row">
+                    <span class="right grey-text post-timestamp">1 Jan 2077</span>
+                </div>
+            </div>
+        </div>
     </main>
 
 
@@ -131,7 +173,7 @@
         };
         firebase.initializeApp(config);
 
-        
+
     </script>
 
     <script src="main.js"></script>
