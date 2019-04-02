@@ -48,10 +48,16 @@ main {
 }
 
 .comment-container {
-	background-color: #eee;
-	border-radius: 3px;
 	padding: 5px 5px;
 	margin-bottom: 3px;
+}
+
+.comment-content {
+	background-color: #489be4;
+	color: white;
+	border-radius: 500px;
+	width: fit-content;
+	padding: 0.1em 1em;
 }
 
 .post-footer {
