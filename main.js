@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const postTemplate = "<div class='post-holder card-panel'>";
+const commentTemplate="<div class='comment-container row valign-wrapper'>"+"<img src='user-placeholder.png' class='comment-user-pic col s2 m1'>"
++"<div class='col s10 m11'>"+
+    "<div class='comment-content'>";
 fetchData();
 
 // firebase.initializeApp({
@@ -24,34 +27,53 @@ function post(ih, ts) {
     this.ts = ts;
 }
 
-function updateUI(doc) {
+function updateuI(doc) {
+    console.log("idhar pahuncha");
     var data = doc.data();
-    var ih = postTemplate + data.html + "</div>";
-    var ch = "<div class=commentholder>";         //Shi krliyo apne hisab se
+    var postt = document.getElementById(doc.id);
+    if (!postt) {
+        postt=document.createElement('div');
+        postt.setAttribute('class','post-holder card-panel');
+        console.log("idhar pahuncha");
+        var ih = "<div>" + data.html + "</div>";
+                 //Shi krliyo apne hisab se
+        ch="<div><h5>Comments</h5>"
+        for (var i = 0; i < data.comments.length; i++)ch = ch+commentTemplate + data.comments[i]+"</div></div></div>";          //comments ki list
+        ch = ch + "</div>";
 
-    for (var i = 0; i < data.comments.length; i++)ch = ch + data.comments[i];          //comments ki list
-    ch = ch + "</div>";
-    console.log(ih);
-    var mainpost = $(ih);
-    console.log(doc.id);
-    var comment = $(ch);
-    var button = $("<button class='btn-small'>Add comments</button>");
+        var mainpost = $(ih);
+        console.log(doc.id);
+        var comment = $(ch);
+        var button = $("<button class='btn-small'>Add comments</button>");
 
 
-    mainpost.appendTo("#holder");              //holder pe bhi css laga de(holde ke andar post,comment aur button hai)
-    comment.appendTo("#holder");
-    button.appendTo("#holder");
-    button.addEventListener("click", addcomment.bind(null, button, doc.id));
+
+        mainpost.appendTo(postt);              //holder pe bhi css laga de(holde ke andar post,comment aur button hai)
+        comment.appendTo(postt);
+        button.appendTo(postt);
+        document.getElementById("holder").appendChild(postt);
+
+
+
+      //  button.addEventListener("click", addcomment.bind(null, button, doc.id));
+    }
+
+    
+    
 }
 
 function fetchData() {
-    db.collection("new").get().then(function (querySnapshot) {
+    db.collection("new").orderBy('time','desc').limit(10).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             console.log("fetched succesfully");
-            updateUI(doc);
+            updateuI(doc);
         });
+     
     });
-}
+
+    }
+
+   
 
 function postData() {
     var markupStr = $('#summernote').summernote('code');
