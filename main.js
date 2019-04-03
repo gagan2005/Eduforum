@@ -1,4 +1,6 @@
 var db = firebase.firestore();
+var storage=firebase.storage();
+
 
 //Initialize Sidebar
 document.addEventListener('DOMContentLoaded', function () {
@@ -27,11 +29,49 @@ function post(ih, ts) {
     this.ts = ts;
 }
 
+$('#summernote').summernote({
+    callbacks: {
+     
+
+        onImageUpload: function(files, editor, welEditable) {
+            sendFile(files[0], editor, welEditable);
+        }
+    }
+    });
+
+    function sendFile(files,editor,welEditable)
+    {
+        // upload image to server and create imgNode...
+        console.log("Uploadeing image to storage..");
+        var filePath = "test" + '/' + files.name;
+         storage.ref(filePath).put(files).then(function(fileSnapshot) {
+          // 3 - Generate a public URL for the file.
+          return fileSnapshot.ref.getDownloadURL().then((url) => {
+              console.log(url);
+            // 4 - Update the chat message placeholder with the image’s URL.
+           
+          // $('#summernote').summernote('insertImage', url,'kutta');
+
+          $('#summernote').summernote('insertImage', url, function ($image) {
+            
+            $image.attr('class', 'responsive-img');
+          });
+
+                //editor.insertImage(welEditable, url);
+               
+             
+           
+          });
+        });
+    }
+     
+
 function updateuI(doc) {
-    console.log("idhar pahuncha");
+   
     var data = doc.data();
     var postt = document.getElementById(doc.id);
-    if (!postt) {
+    if (!postt) 
+    {
         postt=document.createElement('div');
         postt.setAttribute('class','post-holder card-panel');
         console.log("idhar pahuncha");
@@ -52,7 +92,8 @@ function updateuI(doc) {
         comment.appendTo(postt);
         button.appendTo(postt);
         document.getElementById("holder").appendChild(postt);
-
+    }
+    
 
 
       //  button.addEventListener("click", addcomment.bind(null, button, doc.id));
@@ -60,7 +101,7 @@ function updateuI(doc) {
 
     
     
-}
+
 
 function fetchData() {
     db.collection("new").orderBy('time','desc').limit(10).get().then(function (querySnapshot) {
@@ -68,6 +109,8 @@ function fetchData() {
             console.log("fetched succesfully");
             updateuI(doc);
         });
+
+
      
     });
 
