@@ -2,6 +2,7 @@
   left: 10px;
 }
 
+
 .user-icon {
   width: 50px;
   position: relative;
@@ -44,6 +45,8 @@ main {
 
 .post-holder {
   margin: 1vh 1vw;
+  margin-bottom:2vh;
+  
   padding-bottom: 0px;
 }
 
@@ -66,4 +69,8 @@ main {
 
 .comment-user-pic {
 	max-width: 2.5em;
+}
+
+iframe {
+  width: 100%;
 }
