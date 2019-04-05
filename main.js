@@ -1,6 +1,6 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
-var lastdoc = null;
+var lastdoc=null;
 
 //Initialize Sidebar
 document.addEventListener('DOMContentLoaded', function () {
@@ -30,6 +30,8 @@ function showSummernote()
         $('#summernote').summernote();
         
     });
+
+    
     
 }
 
