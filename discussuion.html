@@ -52,7 +52,8 @@
 
                 <div class="nav-content blue darken-1">
                     <span class="nav-title" style="padding:10px;">Forum</span>
-                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light yellow darken-3">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light yellow darken-3"
+                        onclick="showSummernote()">
                         <i class="material-icons">add</i>
                     </a>
                 </div>
@@ -106,14 +107,11 @@
             </a>
         </div> -->
 
-        <button class="btn" onclick="showSummernote()">
-            Ask a new question
-        </button>
         <div id="ques" style="display:none">
             <div>Question Title(max 50 chars)</div>
             <textarea maxlength="50"></textarea>
             <div>Question Details</div>
-            <textarea id="summernote" ></textarea>
+            <textarea id="summernote"></textarea>
             <button class="btn" onclick="postData()">Post</button>
         </div>
 
