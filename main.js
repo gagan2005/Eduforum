@@ -98,19 +98,32 @@ function updateuI(doc) {
     //  button.addEventListener("click", addcomment.bind(null, button, doc.id));
 }
 
-
 function fetchData() {
-    db.collection("new").orderBy('time', 'desc').limit(10).get().then(function (querySnapshot) {
+    if(lastdoc) var query=db.collection("new").orderBy('time','desc').limit(10).startAt(lastdoc);
+    else
+   var query= db.collection("new").orderBy('time','desc').limit(10);
+
+   
+   
+   query.get().then(function (querySnapshot) {
+        var flag=0;
+        var lastdoc=querySnapshot.docs[9]
         querySnapshot.forEach(function (doc) {
             console.log("fetched succesfully");
+            flag=1;
             updateuI(doc);
         });
-
+    
+            if(flag==1)
+            {
+                $('#loading2').hide();
+                $('#loadmore').show();
+            console.log("hidden succesfully");
+            }
+     
     });
 
-}
-
-
+    }
 
 function postData() {
     var markupStr = $('#summernote').summernote('code');
@@ -125,6 +138,7 @@ function postData() {
 
 function addcomment(evt, id) {
     db.collection("new").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion("kutta") });
+    db.collection("new").doc(id).get().then(updateuI(doc));
 }
 
 function createPostElement(data, docid) {
