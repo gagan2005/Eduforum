@@ -24,6 +24,15 @@ $(document).ready(function () {
     $('#summernote').summernote();
 });
 
+function showSummernote()
+{
+    $(document).ready(function () {
+        $('#summernote').summernote();
+        
+    });
+    
+}
+
 function post(ih, ts) {
     this.ih;
     this.ts = ts;
