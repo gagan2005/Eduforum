@@ -38,6 +38,13 @@ main {
   overflow-wrap: break-word;
 }
 
+.loading
+{
+  margin: auto;
+  width:30%;
+
+
+}
 .profile-card {
   border-radius: 5px;
   padding: 1%;

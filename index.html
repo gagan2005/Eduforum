@@ -99,11 +99,13 @@
             </a>
         </div> -->
 
-        <form method="post">
+       <button class="btn" onclick="showSummernote()">
+            Add post
+        </button>
+        <form method="post" hidden="true">
             <textarea id="summernote" name="editordata"></textarea>
+            <button class="btn" onclick="postData()">Post</button>
         </form>
-
-        <button class="btn" onclick="postData()">Post</button>
 
         <div id="holder">
             <!-- sample post start -->
@@ -128,6 +130,25 @@
                     </div>
                     <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i
                             class="material-icons">send</i></a>
+                </div>
+            </div>    
+        </div>
+                 <div id="loading2" class="loading">
+                
+                <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                          <div class="circle-clipper left">
+                            <div class="circle"></div>
+                          </div><div class="gap-patch">
+                            <div class="circle"></div>
+                          </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="post-footer row">
+                    <a>Load More...</a>
                 </div>
         
            
