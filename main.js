@@ -114,9 +114,10 @@ function updateuI(doc) {
     }
 
     else 
-    {
-        postt.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a> </div> </div>';
+    {   console.log("updating..");
+
     postt.querySelector('.post-content').innerHTML = data.html;
+   // postt.querySelector('.sendd').addEventListener('click',addcomment.bind(null,null,docid));
     var date = data.time.toDate();
     //    var fdate= date.substring(0,date.indexOf('G'));
     postt.querySelector('.post-time').textContent = data.time.toDate().toDateString();
@@ -189,15 +190,20 @@ function postData() {
 }
 
 function addcomment(evt, id) {
-    db.collection("new").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion("kutta") });
-    db.collection("new").doc(id).get().then(updateuI(doc));
+    console.log(id);
+        var postElement=document.getElementById(id);
+    var commentin=postElement.querySelector('#textarea1').value;
+    db.collection("new").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion(commentin) });
+
+    db.collection("new").doc(id).get().then(function(doc){updateuI(doc)});
 }
 
 function createPostElement(data, docid) {
     var postElement = document.createElement('div');
     postElement.id = docid;
-    postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a> </div> </div>';
+    postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
     postElement.querySelector('.post-content').innerHTML = data.html;
+    postElement.querySelector('.sendd').addEventListener('click',addcomment.bind(null,null,docid));
     var date = data.time.toDate();
     //    var fdate= date.substring(0,date.indexOf('G'));
     postElement.querySelector('.post-time').textContent = data.time.toDate().toDateString();
