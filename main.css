@@ -45,6 +45,8 @@ main {
 
 .post-holder {
   margin: 1vh 1vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 
 .comment-container {
@@ -60,14 +62,11 @@ main {
 	padding: 0.1em 1em;
 }
 
-.post-footer {
-  margin-bottom: 0px;
-}
-
 .post-header {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .user-pic {
