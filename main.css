@@ -44,7 +44,6 @@ main {
 
 .post-holder {
   margin: 1vh 1vw;
-  padding-bottom: 0px;
 }
 
 .comment-container {
@@ -61,9 +60,29 @@ main {
 }
 
 .post-footer {
-	margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
-.comment-user-pic {
-	max-width: 2.5em;
+.post-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-pic {
+  max-width: 2.8em;
+  max-height: 2.8em;
+  margin-right: 1em;
+}
+
+img, iframe {
+  max-width: 100%;
+}
+
+.smaller-text {
+  font-size: 0.8em;
+}
+
+.to-right {
+  margin-left: auto;
 }
