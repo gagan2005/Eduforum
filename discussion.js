@@ -1,5 +1,6 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
+var lastdoc=null;
 
 
 //Initialize Sidebar
@@ -115,6 +116,25 @@ function updateuI(doc) {
         document.getElementById("holder").appendChild(postt);
     }
 
+    else 
+    {
+        postt.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a> </div> </div>';
+    postt.querySelector('.post-content').innerHTML = data.html;
+    var date = data.time.toDate();
+    //    var fdate= date.substring(0,date.indexOf('G'));
+    postt.querySelector('.post-time').textContent = data.time.toDate().toDateString();
+
+    // TODO: add posters name and pic
+
+    var commentHTML = '';
+    data.comments.forEach(comment => {
+        commentHTML += '<div class="comment-container row valign-wrapper"> <img src="user-placeholder.png" class="user-pic col s2 m1"> <div class="col s10 m11"> <div class="comment-content">' + comment + '</div> </div> </div>';
+        // TODO: Add commenters pic
+    });
+    postt.querySelector('.post-comments').innerHTML = commentHTML;
+
+    }
+
 
 
     //  button.addEventListener("click", addcomment.bind(null, button, doc.id));
@@ -148,15 +168,32 @@ function fetchData() {
     }
 
 function postData() {
-    var questitle="ques"
+
+    console.log("posting data..");
+   // var questitle=$.trim($('#ques').val());
     var markupStr = $('#summernote').summernote('code');
     console.log(markupStr);
+
     db.collection("ques").add({
         html: markupStr,title:questitle, time: firebase.firestore.FieldValue.serverTimestamp(), comments:
             ["hello", "buffalo"]
     }).then(function (docRef) {
-        console.log("Document written with ID: ", docRef.id);
+        then(function (docRef) {
+            docRef.get().then(function(doc) {
+                if (doc.exists) {
+                    holder=document.getElementById('holder');
+                        holder.insertBefore(createPostElement(doc.data(),doc.id),holder.childNodes[0]);
+                        $('#ques').hide();
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
     });
+});
+
 }
 
 function addcomment(evt, id) {
