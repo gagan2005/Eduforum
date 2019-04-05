@@ -110,23 +110,22 @@ function updateuI(doc) {
 }
 
 function fetchData() {
-    if(lastdoc) var query=db.collection("new").orderBy('time','desc').limit(10).startAt(lastdoc);
+    if (lastdoc) var query = db.collection("new").orderBy('time', 'desc').limit(10).startAt(lastdoc);
     else
-   var query= db.collection("new").orderBy('time','desc').limit(10);
+        var query = db.collection("new").orderBy('time', 'desc').limit(10);
 
    
    
    query.get().then(function (querySnapshot) {
-        var flag=0;
-        var lastdoc=querySnapshot.docs[9]
+        var flag = 0;
+        var lastdoc = querySnapshot.docs[9]
         querySnapshot.forEach(function (doc) {
             console.log("fetched succesfully");
-            flag=1;
+            flag = 1;
             updateuI(doc);
         });
     
-            if(flag==1)
-            {
+        if (flag == 1) {
                 $('#loading2').hide();
                 $('#loadmore').show();
             console.log("hidden succesfully");

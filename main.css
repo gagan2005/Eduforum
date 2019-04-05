@@ -41,10 +41,9 @@ main {
 .loading
 {
   margin: auto;
-  width:30%;
-
-
+  width: min-content;
 }
+
 .profile-card {
   border-radius: 5px;
   padding: 1%;
