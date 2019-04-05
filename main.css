@@ -57,15 +57,19 @@ main {
 
 .comment-container {
 	padding: 5px 5px;
-	margin-bottom: 3px;
+  margin-bottom: 3px;
+  padding:0.1em;
+  color: gray;
 }
 
 .comment-content {
-	background-color: #489be4;
-	color: white;
-	border-radius: 500px;
+	
+  color: black;
+  
+	border : 0.05em solid gray;
 	width: fit-content;
-	padding: 0.1em 1em;
+  padding: 0.1em 1em;
+  border-radius: 5%;
 }
 
 .post-header {
