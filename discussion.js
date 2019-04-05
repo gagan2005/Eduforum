@@ -116,7 +116,7 @@ function updateuI(doc) {
     }
 
     else {
-        postt.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a> </div> </div>';
+       // postt.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a> </div> </div>';
         postt.querySelector('.post-content').innerHTML = data.html;
         var date = data.time.toDate();
         //    var fdate= date.substring(0,date.indexOf('G'));
@@ -220,7 +220,7 @@ function createQuestionElement(data, docid) {
 
     var commentHTML = '';
     data.comments.forEach(comment => {
-        commentHTML += '<div class="comment-container row valign-wrapper"> <img src="user-placeholder.png" class="user-pic col s2 m1"> <div class="col s10 m11"> <div class="comment-content">' + comment + '</div> </div> </div>';
+        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>JOhn doe</div> <div class="comment-content">' + comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     });
     questionElement.querySelector('.post-comments').innerHTML = commentHTML;
