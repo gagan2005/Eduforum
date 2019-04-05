@@ -1,4 +1,6 @@
 var db = firebase.firestore();
+var storage = firebase.storage();
+
 
 //Initialize Sidebar
 document.addEventListener('DOMContentLoaded', function () {
@@ -27,8 +29,44 @@ function post(ih, ts) {
     this.ts = ts;
 }
 
+$('#summernote').summernote({
+    callbacks: {
+
+
+        onImageUpload: function (files, editor, welEditable) {
+            sendFile(files[0], editor, welEditable);
+        }
+    }
+});
+
+function sendFile(files, editor, welEditable) {
+    // upload image to server and create imgNode...
+    console.log("Uploadeing image to storage..");
+    var filePath = "test" + '/' + files.name;
+    storage.ref(filePath).put(files).then(function (fileSnapshot) {
+        // 3 - Generate a public URL for the file.
+        return fileSnapshot.ref.getDownloadURL().then((url) => {
+            console.log(url);
+            // 4 - Update the chat message placeholder with the image’s URL.
+
+            // $('#summernote').summernote('insertImage', url,'kutta');
+
+            $('#summernote').summernote('insertImage', url, function ($image) {
+
+                $image.attr('class', 'responsive-img');
+            });
+
+            //editor.insertImage(welEditable, url);
+
+
+
+        });
+    });
+}
+
+
 function updateuI(doc) {
-    console.log("idhar pahuncha");
+
     var data = doc.data();
     var postt = document.getElementById(doc.id);
     if (!postt) {
@@ -53,15 +91,13 @@ function updateuI(doc) {
         // button.appendTo(postt);
         postt = createPostElement(data, doc.id);
         document.getElementById("holder").appendChild(postt);
-
-
-
-        //  button.addEventListener("click", addcomment.bind(null, button, doc.id));
     }
 
 
 
+    //  button.addEventListener("click", addcomment.bind(null, button, doc.id));
 }
+
 
 function fetchData() {
     db.collection("new").orderBy('time', 'desc').limit(10).get().then(function (querySnapshot) {
@@ -96,10 +132,10 @@ function createPostElement(data, docid) {
     postElement.id = docid;
     postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a> </div> </div>';
     postElement.querySelector('.post-content').innerHTML = data.html;
-    var date=data.time.toDate();
-//    var fdate= date.substring(0,date.indexOf('G'));
+    var date = data.time.toDate();
+    //    var fdate= date.substring(0,date.indexOf('G'));
     postElement.querySelector('.post-time').textContent = data.time.toDate().toDateString();
-    
+
     // TODO: add posters name and pic
 
     var commentHTML = '';

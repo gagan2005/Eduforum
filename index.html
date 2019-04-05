@@ -129,8 +129,9 @@
                     <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i
                             class="material-icons">send</i></a>
                 </div>
-            </div>
-        </div>
+        
+           
+        
     </main>
 
 
@@ -142,18 +143,18 @@
     <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
-
     <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyDohZMBbT1TVeDf-zu1B0S3tMXvxbgiL94",
             authDomain: "aviral-vlogs.firebaseapp.com",
-            databaseURL: "https://aviral-vlogs.firebaseio.com",
+            //databaseURL: "https://aviral-vlogs.firebaseio.com",
             projectId: "aviral-vlogs",
             storageBucket: "aviral-vlogs.appspot.com",
-            messagingSenderId: "649916051517"
+            //messagingSenderId: "649916051517"
         };
         firebase.initializeApp(config);
+        var storage=firebase.storage();
 
 
     </script>
