@@ -27,8 +27,8 @@
 <body class="flow-text">
     <!-- Header -->
     <header>
-        <div class="navbar-fixed">
-            <nav>
+        <div class="navbar-fixed" style="height: 124px;">
+            <nav class="nav-extended">
                 <div class="nav-wrapper blue darken-1">
                     <a href="index.html" class="brand-logo">Website Title</a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -48,6 +48,13 @@
                             <li><img class="user-icon circle" src="user-placeholder.png"></li>
                         </ul>
                     </span>
+                </div>
+
+                <div class="nav-content blue darken-1">
+                    <span class="nav-title" style="padding:10px;">Forum</span>
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light yellow darken-3">
+                        <i class="material-icons">add</i>
+                    </a>
                 </div>
             </nav>
         </div>
@@ -99,7 +106,7 @@
             </a>
         </div> -->
 
-       <button class="btn" onclick="showSummernote()">
+        <button class="btn" onclick="showSummernote()">
             Ask a new question
         </button>
         <form method="post" hidden="true" id="ques">
@@ -119,7 +126,7 @@
                     <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div>
                 </div>
                 <div class="post-content">
-                    
+
                 </div>
 
                 <h4>Comments</h4>
@@ -134,28 +141,30 @@
                     <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i
                             class="material-icons">send</i></a>
                 </div>
-            </div>    
+            </div>
         </div>
-                 <div id="loading2" class="loading">
-                
-                <div class="preloader-wrapper big active">
-                        <div class="spinner-layer spinner-blue-only">
-                          <div class="circle-clipper left">
-                            <div class="circle"></div>
-                          </div><div class="gap-patch">
-                            <div class="circle"></div>
-                          </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                          </div>
-                        </div>
-                      </div>
+        <div id="loading2" class="loading">
+
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
-                <div class="post-footer row">
-                    <a>Load More...</a>
-                </div>
-        
-           
-        
+            </div>
+        </div>
+        <div class="post-footer row">
+            <a>Load More...</a>
+        </div>
+
+
+
     </main>
 
 
@@ -179,7 +188,7 @@
             //messagingSenderId: "649916051517"
         };
         firebase.initializeApp(config);
-        var storage=firebase.storage();
+        var storage = firebase.storage();
 
 
     </script>
