@@ -137,8 +137,9 @@ function updateuI(doc) {
     //  button.addEventListener("click", addcomment.bind(null, button, doc.id));
 }
 
-function fetchData() {
-    if (lastdoc) var query = db.collection("new").orderBy('time', 'desc').limit(10).startAt(lastdoc);
+function fetchData(){
+    //$('#loading2').show();
+    if (lastdoc) {var query = db.collection("new").orderBy('time', 'desc').startAfter(lastdoc).limit(10);console.log("lastdoc exists");}
     else
         var query = db.collection("new").orderBy('time', 'desc').limit(10);
 
@@ -146,7 +147,8 @@ function fetchData() {
    
    query.get().then(function (querySnapshot) {
         var flag = 0;
-        var lastdoc = querySnapshot.docs[9]
+         lastdoc = querySnapshot.docs[9];
+         
         querySnapshot.forEach(function (doc) {
             console.log("fetched succesfully");
             flag = 1;

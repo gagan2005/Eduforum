@@ -139,7 +139,8 @@ function updateuI(doc) {
 }
 
 function fetchData() {
-    if (lastdoc) var query = db.collection("ques").orderBy('time', 'desc').limit(10).startAt(lastdoc);
+    $('#loading2').show();
+    if (lastdoc) var query = db.collection("ques").orderBy('time', 'desc').limit(10).startAfter(lastdoc);
     else
         var query = db.collection("ques").orderBy('time', 'desc').limit(10);
 
