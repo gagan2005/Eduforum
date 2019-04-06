@@ -2,6 +2,7 @@ var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc=null;
 var holder=null;
+var username="John doe";
 
 //Initialize Sidebar
 document.addEventListener('DOMContentLoaded', function () {
@@ -167,6 +168,7 @@ function fetchData(){
     }
 
 function postData() {
+    $("#posting").show();
     var markupStr = $('#summernote').summernote('code');
     console.log(markupStr);
     db.collection("new").add({
@@ -179,6 +181,7 @@ function postData() {
                 holder=document.getElementById('holder');
                     holder.insertBefore(createPostElement(doc.data(),doc.id),holder.childNodes[0]);
                     $('#post').hide();
+                    $("#posting").hide();
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");

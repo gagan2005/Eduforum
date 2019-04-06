@@ -1,6 +1,7 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc = null;
+var username="John Doe";
 
 
 //Initialize Sidebar
@@ -166,21 +167,24 @@ function fetchData() {
 }
 
 function postData() {
-
+$("#posting").show();
     console.log("posting data..");
      var questitle=$.trim($('#ques').val());
     var markupStr = $('#summernote').summernote('code');
     console.log(markupStr);
 
     db.collection("ques").add({
-        html: markupStr, title: questitle, time: firebase.firestore.FieldValue.serverTimestamp(), comments:
-            ["hello", "buffalo"]
+        html: markupStr, title: questitle, time: firebase.firestore.FieldValue.serverTimestamp(), comments:[]
     }).then(function (docRef) {
             docRef.get().then(function (doc) {
                 if (doc.exists) {
                     holder = document.getElementById('holder');
                     holder.insertBefore(createQuestionElement(doc.data(), doc.id), holder.childNodes[0]);
                     $('#ques').hide();
+                    $("#posting").hide();
+                    
+
+
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
@@ -197,7 +201,7 @@ function addcomment(evt, id) {
     console.log(id);
     var postElement=document.getElementById(id);
 var commentin=postElement.querySelector('#textarea1').value;
-db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion(commentin) });
+db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({comment:commentin,user:username})});
 
 db.collection("ques").doc(id).get().then(function(doc){updateuI(doc)});
 }
@@ -220,7 +224,7 @@ function createQuestionElement(data, docid) {
 
     var commentHTML = '';
     data.comments.forEach(comment => {
-        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>JOhn doe</div> <div class="comment-content">' + comment + '</div> </div> </div>';
+        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     });
     questionElement.querySelector('.post-comments').innerHTML = commentHTML;
