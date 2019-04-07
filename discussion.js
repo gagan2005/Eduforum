@@ -1,7 +1,7 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc = null;
-var username="John Doe";
+
 
 
 //Initialize Sidebar
@@ -64,6 +64,7 @@ $('#summernote').summernote({
 
 function sendFile(files, editor, welEditable) {
     // upload image to server and create imgNode...
+    $('#upimg').show();
     console.log("Uploadeing image to storage..");
     var filePath = "test" + '/' + files.name;
     storage.ref(filePath).put(files).then(function (fileSnapshot) {
@@ -77,6 +78,7 @@ function sendFile(files, editor, welEditable) {
             $('#summernote').summernote('insertImage', url, function ($image) {
 
                 $image.attr('class', 'responsive-img');
+                $('#upimg').hide();
             });
 
             //editor.insertImage(welEditable, url);
@@ -127,7 +129,7 @@ function updateuI(doc) {
 
         var commentHTML = '';
         data.comments.forEach(comment => {
-            commentHTML += '<div class="comment-container row valign-wrapper"> <img src="user-placeholder.png" class="user-pic col s2 m1"> <div class="col s10 m11"> <div class="comment-content">' + comment + '</div> </div> </div>';
+            commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
             // TODO: Add commenters pic
         });
         postt.querySelector('.post-comments').innerHTML = commentHTML;
@@ -174,6 +176,7 @@ $("#posting").show();
     console.log(markupStr);
 
     db.collection("ques").add({
+        user:username,userpic:getProfilePicUrl(),
         html: markupStr, title: questitle, time: firebase.firestore.FieldValue.serverTimestamp(), comments:[]
     }).then(function (docRef) {
             docRef.get().then(function (doc) {
@@ -211,7 +214,7 @@ function createQuestionElement(data, docid) {
     console.log("createqueselement is called");
     var questionElement = document.createElement('div');
     questionElement.id = docid;
-    questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
+    questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="'+data.userpic+'" class="user-pic poster-pic"> <div class="poster-name">'+data.user+'</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
     questionElement.querySelector('.question-title').textContent = data.title;
     questionElement.querySelector('.sendd').addEventListener('click',addcomment.bind(null,null,docid));
   

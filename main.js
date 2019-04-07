@@ -2,7 +2,7 @@ var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc=null;
 var holder=null;
-var username="John doe";
+
 
 //Initialize Sidebar
 document.addEventListener('DOMContentLoaded', function () {
@@ -63,6 +63,7 @@ $('#summernote').summernote({
 function sendFile(files, editor, welEditable) {
     // upload image to server and create imgNode...
     console.log("Uploadeing image to storage..");
+    $("upimg").show();
     var filePath = "test" + '/' + files.name;
     storage.ref(filePath).put(files).then(function (fileSnapshot) {
         // 3 - Generate a public URL for the file.
@@ -75,6 +76,7 @@ function sendFile(files, editor, welEditable) {
             $('#summernote').summernote('insertImage', url, function ($image) {
 
                 $image.attr('class', 'responsive-img');
+                $("upimg").hide();
             });
 
             //editor.insertImage(welEditable, url);
@@ -127,7 +129,7 @@ function updateuI(doc) {
 
     var commentHTML = '';
     data.comments.forEach(comment => {
-        commentHTML += '<div class="comment-container row valign-wrapper"> <img src="user-placeholder.png" class="user-pic col s2 m1"> <div class="col s10 m11"> <div class="comment-content">' + comment + '</div> </div> </div>';
+        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     });
     postt.querySelector('.post-comments').innerHTML = commentHTML;
@@ -196,7 +198,7 @@ function addcomment(evt, id) {
     console.log(id);
         var postElement=document.getElementById(id);
     var commentin=postElement.querySelector('#textarea1').value;
-    db.collection("new").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion(commentin) });
+    db.collection("new").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({comment:commentin,user:username}) });
 
     db.collection("new").doc(id).get().then(function(doc){updateuI(doc)});
 }
@@ -215,7 +217,7 @@ function createPostElement(data, docid) {
 
     var commentHTML = '';
     data.comments.forEach(comment => {
-        commentHTML += '<div class="comment-container row valign-wrapper"> <img src="user-placeholder.png" class="user-pic col s2 m1"> <div class="col s10 m11"> <div class="comment-content">' + comment + '</div> </div> </div>';
+        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     });
     postElement.querySelector('.post-comments').innerHTML = commentHTML;
