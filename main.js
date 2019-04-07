@@ -128,10 +128,11 @@ function updateuI(doc) {
     // TODO: add posters name and pic
 
     var commentHTML = '';
-    data.comments.forEach(comment => {
+    for(var i=data.comments.length-1;i>=0 && i>data.comments.length-10;i--){
+        var comment=data.comments[i];
         commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
-    });
+    }
     postt.querySelector('.post-comments').innerHTML = commentHTML;
 
     }
@@ -216,10 +217,11 @@ function createPostElement(data, docid) {
     // TODO: add posters name and pic
 
     var commentHTML = '';
-    data.comments.forEach(comment => {
+    for(var i=data.comments.length-1;i>=0 && i>data.comments.length-10;i--){
+        var comment=data.comments[i];
         commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
-    });
+    }
     postElement.querySelector('.post-comments').innerHTML = commentHTML;
     return postElement;
 }
