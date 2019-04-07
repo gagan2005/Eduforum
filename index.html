@@ -34,16 +34,15 @@
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <span class="right">
                         <ul class="hide-on-med-and-down">
-                            <span class="hide-on-log-out">
-                                <li><a href="#" onclick="displayPortfolioOfCurrentUser();"><i
-                                            class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
-                                <li><a id="edit-button" href="form.html"><i class="material-icons left">edit</i>Edit
-                                        Profile</a></li>
-                                <li><a href="#" id="sign-out" class="waves-effect waves-light btn yellow darken-3">Sign
-                                        Out</a></li>
-                            </span>
-
-                            <li><a href="#" id="sign-in" class="waves-effect waves-light btn yellow darken-3">Sign
+                            <li><a href="#" onclick="displayPortfolioOfCurrentUser();"><i
+                                        class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
+                            <li><a id="edit-button" href="form.html"><i class="material-icons left">edit</i>Edit
+                                    Profile</a></li>
+                            <li><a href="#" id="sign-out"
+                                    class="waves-effect waves-light btn yellow darken-3 hide-on-log-out">Sign
+                                    Out</a></li>
+                            <li><a href="#" id="sign-in"
+                                    class="waves-effect waves-light btn yellow darken-3 hide-on-log-in">Sign
                                     In</a></li>
                             <li><img class="user-icon circle" src="user-placeholder.png"></li>
                         </ul>
@@ -64,17 +63,15 @@
                 </div>
             </div>
         </li>
-        <li id="sign-in-sidenav"><a href="#" class="waves-effect"><i class="fa fa-2x fa-sign-in left"
-                    aria-hidden="true"></i>Sign In</a></li>
+        <li id="sign-in-sidenav" onclick="signIn()" class="hide-on-log-in"><a href="#" class="waves-effect"><i
+                    class="fa fa-2x fa-sign-in left" aria-hidden="true"></i>Sign In</a></li>
         <li><a href="index.html" class="waves-effect"><i class="material-icons left">home</i>Home</a></li>
-        <span class="hide-on-log-out">
-            <li><a href="#" class="waves-effect" onclick="displayPortfolioOfCurrentUser();"><i
-                        class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
-            <li><a id="edit-sidenav" href="form.html" class="waves-effect"><i class="material-icons left">edit</i>Edit
-                    Profile</a></li>
-            <li id="sign-out-sidenav"><a href="#" class="waves-effect"><i class="fa fa-2x fa-sign-out left"
-                        aria-hidden="true"></i>Sign Out</a></li>
-        </span>
+        <li><a href="#" class="waves-effect" onclick="displayPortfolioOfCurrentUser();"><i
+                    class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
+        <li><a id="edit-sidenav" href="form.html" class="waves-effect"><i class="material-icons left">edit</i>Edit
+                Profile</a></li>
+        <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
+                    class="fa fa-2x fa-sign-out left" aria-hidden="true"></i>Sign Out</a></li>
     </ul>
 
     <main>
@@ -99,7 +96,7 @@
             </a>
         </div> -->
 
-       <button class="btn" onclick="showSummernote()">
+        <button class="btn" onclick="showSummernote()">
             Add post
         </button>
         <div id="post" style="display:none">
@@ -111,28 +108,27 @@
 
         <div id="holder">
             <!-- sample post start -->
-            
+
         </div>
-                 <div id="loading2" class="loading">
-                
-                <div class="preloader-wrapper big active">
-                        <div class="spinner-layer spinner-blue-only">
-                          <div class="circle-clipper left">
-                            <div class="circle"></div>
-                          </div><div class="gap-patch">
-                            <div class="circle"></div>
-                          </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                          </div>
-                        </div>
-                      </div>
+        <div id="loading2" class="loading">
+
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
-                <div class="post-footer row">
-                    <a onclick="fetchData()">Load More</a>
-                </div>
-        
-           
-        
+            </div>
+        </div>
+        <div class="post-footer row">
+            <a onclick="fetchData()">Load More</a>
+        </div>
     </main>
 
 
@@ -156,11 +152,11 @@
             //messagingSenderId: "649916051517"
         };
         firebase.initializeApp(config);
-        var storage=firebase.storage();
+        var storage = firebase.storage();
 
 
     </script>
-
+    <script src="auth.js"></script>
     <script src="main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
