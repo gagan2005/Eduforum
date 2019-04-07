@@ -87,6 +87,21 @@ function sendFile(files, editor, welEditable) {
     });
 }
 
+function loadallcomments(evt,doc)
+{
+    var data = doc.data;
+    var postt = document.getElementById(doc.id);
+    var commentHTML = '';
+    for(var i=data.comments.length-1;i>=0;i--){
+        var comment=data.comments[i];
+        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
+        // TODO: Add commenters pic
+    }
+    postt.querySelector('.post-comments').innerHTML = commentHTML;
+
+
+}
+
 
 function updateuI(doc) {
 
@@ -119,11 +134,7 @@ function updateuI(doc) {
     else 
     {   console.log("updating..");
 
-    postt.querySelector('.post-content').innerHTML = data.html;
-   // postt.querySelector('.sendd').addEventListener('click',addcomment.bind(null,null,docid));
-    var date = data.time.toDate();
-    //    var fdate= date.substring(0,date.indexOf('G'));
-    postt.querySelector('.post-time').textContent = data.time.toDate().toDateString();
+    
 
     // TODO: add posters name and pic
 
@@ -207,9 +218,13 @@ function addcomment(evt, id) {
 function createPostElement(data, docid) {
     var postElement = document.createElement('div');
     postElement.id = docid;
-    postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
+    postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="loadall"><a>Load all comments</a></div> <div class="row valign-wrapper">'+
+    '<div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div>'+
+    '<a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
     postElement.querySelector('.post-content').innerHTML = data.html;
     postElement.querySelector('.sendd').addEventListener('click',addcomment.bind(null,null,docid));
+    if(data.comments.length<=10)postElement.querySelector('.loadall').setAttribute('style','display:none');
+    postElement.querySelector('.loadall').addEventListener('click',loadallcomments.bind(null,null,{data:data,id:docid}));
     var date = data.time.toDate();
     //    var fdate= date.substring(0,date.indexOf('G'));
     postElement.querySelector('.post-time').textContent = data.time.toDate().toDateString();
@@ -222,6 +237,7 @@ function createPostElement(data, docid) {
         commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     }
+   
     postElement.querySelector('.post-comments').innerHTML = commentHTML;
     return postElement;
 }
