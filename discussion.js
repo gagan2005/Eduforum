@@ -177,7 +177,7 @@ function fetchData() {
 function postData() {
     $("#posting").show();
     console.log("posting data..");
-    var questitle = $.trim($('#ques').val());
+    var questitle = $.trim($('#question-title').val());
     var markupStr = $('#summernote').summernote('code');
     console.log(markupStr);
 
