@@ -38,9 +38,11 @@
                                         class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
                             <li><a id="edit-button" href="form.html"><i class="material-icons left">edit</i>Edit
                                     Profile</a></li>
-                            <li><a href="#" id="sign-out" class="waves-effect waves-light btn yellow darken-3 hide-on-log-out">Sign
+                            <li><a href="#" id="sign-out"
+                                    class="waves-effect waves-light btn yellow darken-3 hide-on-log-out">Sign
                                     Out</a></li>
-                            <li><a href="#" id="sign-in" class="waves-effect waves-light btn yellow darken-3 hide-on-log-in">Sign
+                            <li><a href="#" id="sign-in"
+                                    class="waves-effect waves-light btn yellow darken-3 hide-on-log-in">Sign
                                     In</a></li>
                             <li><img class="user-icon circle" src="user-placeholder.png"></li>
                         </ul>
@@ -103,8 +105,13 @@
         </div> -->
 
         <div id="ques" style="display:none">
-            <div>Question Title(max 50 chars)</div>
-            <textarea maxlength="50"></textarea>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">title</i>
+                    <textarea id="question-title" class="materialize-textarea" data-length="50"></textarea>
+                    <label for="question-title">Question Title</label>
+                </div>
+            </div>
             <div>Question Details</div>
             <textarea id="summernote"></textarea>
             <button class="btn" onclick="postData()">Post</button>

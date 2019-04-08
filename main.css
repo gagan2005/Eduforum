@@ -62,11 +62,10 @@ main {
 
 .comment-content {
   color: black;
-
   border: 0.05em solid gray;
   width: fit-content;
   padding: 0.1em 1em;
-  border-radius: 5%;
+  border-radius: 5px;
 }
 
 .post-header {
@@ -80,6 +79,7 @@ main {
   max-width: 2.8em;
   max-height: 2.8em;
   margin-right: 1em;
+  border-radius: 50%;
 }
 
 img,
