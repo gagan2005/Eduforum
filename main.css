@@ -2,7 +2,6 @@
   left: 10px;
 }
 
-
 .user-icon {
   width: 50px;
   position: relative;
@@ -38,8 +37,7 @@ main {
   overflow-wrap: break-word;
 }
 
-.loading
-{
+.loading {
   margin: auto;
   width: min-content;
 }
@@ -56,18 +54,17 @@ main {
 }
 
 .comment-container {
-	padding: 5px 5px;
+  padding: 5px 5px;
   margin-bottom: 3px;
-  padding:0.1em;
+  padding: 0.1em;
   color: gray;
 }
 
 .comment-content {
-	
   color: black;
-  
-	border : 0.05em solid gray;
-	width: fit-content;
+
+  border: 0.05em solid gray;
+  width: fit-content;
   padding: 0.1em 1em;
   border-radius: 5%;
 }
@@ -85,7 +82,8 @@ main {
   margin-right: 1em;
 }
 
-img, iframe {
+img,
+iframe {
   max-width: 100%;
 }
 
@@ -95,4 +93,11 @@ img, iframe {
 
 .to-right {
   margin-left: auto;
+}
+
+.waves-effect.waves-dark-yellow .waves-ripple {
+  /* The alpha value allows the text and background color
+  of the button to still show through. */
+  background-color: rgba(249,168,37, 0.65);
+  text-transform: capitalize;
 }
