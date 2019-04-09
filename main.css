@@ -101,3 +101,12 @@ iframe {
   background-color: rgba(249,168,37, 0.65);
   text-transform: capitalize;
 }
+
+
+.signintitle
+{
+  width: 100%;
+  text-align: center;
+  margin-top:0.5em;
+  margin-bottom: 2em;
+}
