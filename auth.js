@@ -4,7 +4,7 @@ var displayNameElement = document.querySelector('.display-name');
 var hideOnLogOutElements = document.querySelectorAll('.hide-on-log-out');
 var hideOnLogInElements = document.querySelectorAll('.hide-on-log-in');
 var username=null;
-
+var profilePicUrl=null;
 
 document.getElementById('sign-in').addEventListener('click', signIn);
 document.getElementById('sign-out').addEventListener('click', signOut);
@@ -45,7 +45,7 @@ function isUserSignedIn() {
 function authStateObserver(user) {
     if (user) { // User is signed in!
         // Get the signed-in user's profile pic and name.
-        var profilePicUrl = getProfilePicUrl();
+        profilePicUrl = getProfilePicUrl();
         username=getUserName();
 
         // Set the user's profile pic and name.
