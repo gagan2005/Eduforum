@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var instances = M.Sidenav.init(elems);
 });
 
+$(document).ready(function () {
+    $('textarea#question-title').characterCounter();
+});
+
 const postTemplate = "<div class='post-holder card-panel'>";
 const commentTemplate = "<div class='comment-container row valign-wrapper'>" + "<img src='user-placeholder.png' class='comment-user-pic col s2 m1'>"
     + "<div class='col s10 m11'>" +
@@ -119,7 +123,7 @@ function updateuI(doc) {
     }
 
     else {
-       // postt.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a> </div> </div>';
+        // postt.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3"><i class="material-icons">send</i></a> </div> </div>';
         postt.querySelector('.post-content').innerHTML = data.html;
         var date = data.time.toDate();
         //    var fdate= date.substring(0,date.indexOf('G'));
@@ -128,12 +132,12 @@ function updateuI(doc) {
         // TODO: add posters name and pic
 
         var commentHTML = '';
-        for(var i=data.comments.length-1;i>=0 && i>data.comments.length-10;i--){
-            var comment=data.comments[i];
-            commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
+        for (var i = data.comments.length - 1; i >= 0 && i > data.comments.length - 10; i--) {
+            var comment = data.comments[i];
+            commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>' + comment.user + '</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
             // TODO: Add commenters pic
         }
-        
+
         postt.querySelector('.post-comments').innerHTML = commentHTML;
 
     }
@@ -171,45 +175,44 @@ function fetchData() {
 }
 
 function postData() {
-$("#posting").show();
+    $("#posting").show();
     console.log("posting data..");
-     var questitle=$.trim($('#ques').val());
+    var questitle = $.trim($('#question-title').val());
     var markupStr = $('#summernote').summernote('code');
     console.log(markupStr);
 
     db.collection("ques").add({
-        user:username,userpic:getProfilePicUrl(),
-        html: markupStr, title: questitle, time: firebase.firestore.FieldValue.serverTimestamp(), comments:[]
+        user: username, userpic: getProfilePicUrl(),
+        html: markupStr, title: questitle, time: firebase.firestore.FieldValue.serverTimestamp(), comments: []
     }).then(function (docRef) {
-            docRef.get().then(function (doc) {
-                if (doc.exists) {
-                    holder = document.getElementById('holder');
-                    holder.insertBefore(createQuestionElement(doc.data(), doc.id), holder.childNodes[0]);
-                    $('#ques').hide();
-                    $("#posting").hide();
-                    
+        docRef.get().then(function (doc) {
+            if (doc.exists) {
+                holder = document.getElementById('holder');
+                holder.insertBefore(createQuestionElement(doc.data(), doc.id), holder.childNodes[0]);
+                $('#ques').hide();
+                $("#posting").hide();
 
 
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            }).catch(function (error) {
-                console.log("Error getting document:", error);
-            });
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
         });
-    
+    });
+
 
 }
 
-function loadallcomments(evt,doc)
-{
+function loadallcomments(evt, doc) {
     var data = doc.data;
     var postt = document.getElementById(doc.id);
     var commentHTML = '';
-    for(var i=data.comments.length-1;i>=0;i--){
-        var comment=data.comments[i];
-        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
+    for (var i = data.comments.length - 1; i >= 0; i--) {
+        var comment = data.comments[i];
+        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>' + comment.user + '</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     }
     postt.querySelector('.post-comments').innerHTML = commentHTML;
@@ -219,12 +222,12 @@ function loadallcomments(evt,doc)
 
 function addcomment(evt, id) {
     console.log(id);
-    var postElement=document.getElementById(id);
-var commentin=postElement.querySelector('#textarea1').value;
-db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({comment:commentin,user:username})});
+    var postElement = document.getElementById(id);
+    var commentin = postElement.querySelector('#textarea1').value;
+    db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: commentin, user: username }) });
 
 
-db.collection("ques").doc(id).get().then(function(doc){updateuI(doc)});
+    db.collection("ques").doc(id).get().then(function (doc) { updateuI(doc) });
 }
 
 
@@ -232,12 +235,12 @@ function createQuestionElement(data, docid) {
     console.log("createqueselement is called");
     var questionElement = document.createElement('div');
     questionElement.id = docid;
-    questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="'+data.userpic+'" class="user-pic poster-pic"> <div class="poster-name">'+data.user+'</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div><div class="loadall"><a>Load all answers</a></div>  <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
+    questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="' + data.userpic + '" class="user-pic poster-pic"> <div class="poster-name">' + data.user + '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div><div class="loadall"><a>Load all answers</a></div>  <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
     questionElement.querySelector('.question-title').textContent = data.title;
-    if(data.comments.length<=10)questionElement.querySelector('.loadall').setAttribute('style','display:none');
-    questionElement.querySelector('.loadall').addEventListener('click',loadallcomments.bind(null,null,{data:data,id:docid}));
-    questionElement.querySelector('.sendd').addEventListener('click',addcomment.bind(null,null,docid));
-  
+    if (data.comments.length <= 10) questionElement.querySelector('.loadall').setAttribute('style', 'display:none');
+    questionElement.querySelector('.loadall').addEventListener('click', loadallcomments.bind(null, null, { data: data, id: docid }));
+    questionElement.querySelector('.sendd').addEventListener('click', addcomment.bind(null, null, docid));
+
     questionElement.querySelector('.post-content').innerHTML = data.html;
     var date = data.time.toDate();
     //    var fdate= date.substring(0,date.indexOf('G'));
@@ -246,8 +249,9 @@ function createQuestionElement(data, docid) {
     // TODO: add posters name and pic
 
     var commentHTML = '';
-    for(var i=data.comments.length-1;i>=0 && i>data.comments.length-10;i--){var comment=data.comments[i];
-        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>'+comment.user +'</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
+    for (var i = data.comments.length - 1; i >= 0 && i > data.comments.length - 10; i--) {
+        var comment = data.comments[i];
+        commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>' + comment.user + '</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     }
 
