@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css">
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
     
@@ -106,8 +106,8 @@
 
 
     </script>
-    <script src="node_modules\firebaseui\dist\firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="node_modules\firebaseui\dist\firebaseui.css" />
+    <script src="firebaseui/dist/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="firebaseui/dist/firebaseui.css" />
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -129,7 +129,7 @@
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
   
-          signInSuccessUrl: '127.0.0.1:5500/',      //to be changed at production
+          signInSuccessUrl: 'https://aviral-vlogs.firebaseapp.com',      //to be changed at production
           signInOptions: [
             // Leave the lines as is for the providers you want to offer your users.
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,

@@ -29,6 +29,10 @@ fetchData();
 
 
 function showSummernote() {
+
+    if(username==null){
+        window.location.href="https://aviral-vlogs.firebaseapp.com/login.html"
+    }
     console.log("showing");
     $(document).ready(function () {
         $('#summernote').summernote(

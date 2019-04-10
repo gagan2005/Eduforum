@@ -6,13 +6,9 @@ var hideOnLogInElements = document.querySelectorAll('.hide-on-log-in');
 var username=null;
 var profilePicUrl=null;
 
-document.getElementById('sign-in').addEventListener('click', signIn);
+
 document.getElementById('sign-out').addEventListener('click', signOut);
 
-function signIn() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
-}
 
 function signOut() {
     // Sign out of Firebase.

@@ -187,7 +187,7 @@ function postData() {
     console.log(markupStr);
     db.collection("new").add({
         html: markupStr, time: firebase.firestore.FieldValue.serverTimestamp(), comments:
-            ["hello", "buffalo"]
+            []
     }).
     then(function (docRef) {
         docRef.get().then(function(doc) {
@@ -218,7 +218,7 @@ function addcomment(evt, id) {
 function createPostElement(data, docid) {
     var postElement = document.createElement('div');
     postElement.id = docid;
-    postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">John Doe</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="loadall"><a class="btn-flat waves-effect waves-dark-yellow blue-text text-darken-1"><i class="material-icons left">expand_more</i>Show all</a></div> <div class="row valign-wrapper">'+
+    postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">Aviral Kumar</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="loadall"><a class="btn-flat waves-effect waves-dark-yellow blue-text text-darken-1"><i class="material-icons left">expand_more</i>Show all</a></div> <div class="row valign-wrapper">'+
     '<div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div>'+
     '<a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
     postElement.querySelector('.post-content').innerHTML = data.html;

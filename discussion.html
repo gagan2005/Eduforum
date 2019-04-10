@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>Portfolios</title>
+    <title>Discussion forum</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -34,14 +34,14 @@
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <span class="right">
                         <ul class="hide-on-med-and-down">
-                            <li><a href="#" onclick="displayPortfolioOfCurrentUser();"><i
+                            <li><a href="#"><i
                                         class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
                             <li><a id="edit-button" href="form.html"><i class="material-icons left">edit</i>Edit
                                     Profile</a></li>
                             <li><a href="#" id="sign-out"
                                     class="waves-effect waves-light btn yellow darken-3 hide-on-log-out">Sign
                                     Out</a></li>
-                            <li><a href="#" id="sign-in"
+                            <li><a href="login.html" id="sign-in"
                                     class="waves-effect waves-light btn yellow darken-3 hide-on-log-in">Sign
                                     In</a></li>
                             <li><img class="user-icon circle" src="user-placeholder.png"></li>
@@ -71,13 +71,13 @@
                 </div>
             </div>
         </li>
-        <li id="sign-in-sidenav" onclick="signIn()" class="hide-on-log-in"><a href="#" class="waves-effect"><i
+        <li id="sign-in-sidenav" class="hide-on-log-in"><a href="login.html" class="waves-effect"><i
                     class="fa fa-2x fa-sign-in left" aria-hidden="true"></i>Sign In</a></li>
         <li><a href="index.html" class="waves-effect"><i class="material-icons left">home</i>Home</a></li>
+        <li><a href="discussion.html" class="waves-effect"><i class="material-icons left">speaker_notes</i>Discussion forum</a></li>
         <li><a href="#" class="waves-effect" onclick="displayPortfolioOfCurrentUser();"><i
                     class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
-        <li><a id="edit-sidenav" href="form.html" class="waves-effect"><i class="material-icons left">edit</i>Edit
-                Profile</a></li>
+      
         <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
                     class="fa fa-2x fa-sign-out left" aria-hidden="true"></i>Sign Out</a></li>
     </ul>
@@ -119,7 +119,7 @@
                     <button class="btn" onclick="postData()">Post</button>
                     <span style="display:none;color: green" id="upimg"><br>Uploading image..</span>
                     <span style="display:none;color: green" id="posting"><br>Posting..</span>
-                    <span style="display:none" id="postcomplete">Posted succesfully</span>
+                    
                 </div>
             </div>
         </div>
