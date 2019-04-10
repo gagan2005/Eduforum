@@ -30,7 +30,7 @@ fetchData();
 
 function showSummernote() {
 
-    if(username==null){
+    if(!isUserSignedIn()){
         window.location.href="https://aviral-vlogs.firebaseapp.com/login.html"
     }
     console.log("showing");
@@ -179,6 +179,7 @@ function fetchData() {
 }
 
 function postData() {
+
     $("#posting").show();
     console.log("posting data..");
     var questitle = $.trim($('#question-title').val());
@@ -194,6 +195,7 @@ function postData() {
                 holder = document.getElementById('holder');
                 holder.insertBefore(createQuestionElement(doc.data(), doc.id), holder.childNodes[0]);
                 $('#ques').hide();
+                $('#summernote').summernote('code','p<br></p>');
                 $("#posting").hide();
 
 
@@ -225,6 +227,10 @@ function loadallcomments(evt, doc) {
 }
 
 function addcomment(evt, id) {
+    if(!isUserSignedIn()){
+        window.location.href="https://aviral-vlogs.firebaseapp.com/login.html";
+        return;
+    }
     console.log(id);
     var postElement = document.getElementById(id);
     var commentin = postElement.querySelector('#textarea1').value;

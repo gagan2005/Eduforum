@@ -30,6 +30,7 @@ $(document).ready(function () {
 
     function showSummernote()
 {
+
     $(document).ready(function () {
         $('#summernote').summernote();
         
@@ -182,6 +183,7 @@ function fetchData(){
     }
 
 function postData() {
+    
     $("#posting").show();
     var markupStr = $('#summernote').summernote('code');
     console.log(markupStr);
@@ -194,7 +196,9 @@ function postData() {
             if (doc.exists) {
                 holder=document.getElementById('holder');
                     holder.insertBefore(createPostElement(doc.data(),doc.id),holder.childNodes[0]);
+                    $('#summernote').summernote('code','p<br></p>');
                     $('#post').hide();
+
                     $("#posting").hide();
             } else {
                 // doc.data() will be undefined in this case
@@ -207,6 +211,10 @@ function postData() {
 }
 
 function addcomment(evt, id) {
+    if(!isUserSignedIn()){
+        window.location.href="https://aviral-vlogs.firebaseapp.com/login.html";
+        return;
+    }
     console.log(id);
         var postElement=document.getElementById(id);
     var commentin=postElement.querySelector('#textarea1').value;
@@ -218,7 +226,7 @@ function addcomment(evt, id) {
 function createPostElement(data, docid) {
     var postElement = document.createElement('div');
     postElement.id = docid;
-    postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user-placeholder.png" class="user-pic poster-pic"> <div class="poster-name">Aviral Kumar</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="loadall"><a class="btn-flat waves-effect waves-dark-yellow blue-text text-darken-1"><i class="material-icons left">expand_more</i>Show all</a></div> <div class="row valign-wrapper">'+
+    postElement.innerHTML = '<div class="post-holder card-panel"> <div class="post-header"> <img src="user.jpg" class="user-pic poster-pic"> <div class="poster-name">Aviral Kumar</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <div class="post-content"> </div> <h4>Comments</h4> <div class="post-comments"> </div> <div class="loadall"><a class="btn-flat waves-effect waves-dark-yellow blue-text text-darken-1"><i class="material-icons left">expand_more</i>Show all</a></div> <div class="row valign-wrapper">'+
     '<div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div>'+
     '<a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
     postElement.querySelector('.post-content').innerHTML = data.html;
