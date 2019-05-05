@@ -34,15 +34,17 @@
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <span class="right">
                         <ul class="hide-on-med-and-down">
-                                        <li><a href="/discussion.html" 
-                                            >Discussion forum
-                                            </a></li>
+                            <li><a href="/discussion.html"><i class="material-icons left">speaker_notes</i>Discussion
+                                    forum
+                                </a></li>
+                            <li><a id="edit-button" href="book-reviews.html"><i class="material-icons left">book</i>Book
+                                    Reviews</a></li>
                             <li><a id="edit-button" href="form.html"><i class="material-icons left">edit</i>Edit
                                     Profile</a></li>
                             <li><a href="#" id="sign-out"
                                     class="waves-effect waves-light btn yellow darken-3 hide-on-log-out">Sign
                                     Out</a></li>
-                                    
+
                             <li><a href="#" id="sign-in"
                                     class="waves-effect waves-light btn yellow darken-3 hide-on-log-in">Sign
                                     In</a></li>
@@ -65,10 +67,13 @@
                 </div>
             </div>
         </li>
-        <li id="sign-in-sidenav"  class="hide-on-log-in"><a href="login.html" class="waves-effect"><i
+        <li id="sign-in-sidenav" class="hide-on-log-in"><a href="login.html" class="waves-effect"><i
                     class="fa fa-2x fa-sign-in left" aria-hidden="true"></i>Sign In</a></li>
         <li><a href="index.html" class="waves-effect"><i class="material-icons left">home</i>Home</a></li>
-        <li><a href="discussion.html" class="waves-effect"><i class="material-icons left">speaker_notes</i>Discussion forum</a></li>
+        <li><a href="discussion.html" class="waves-effect"><i class="material-icons left">speaker_notes</i>Discussion
+                forum</a></li>
+        <li><a id="book-reviews" href="book-reviews.html" class="waves-effect"><i
+                    class="material-icons left">book</i>Book Reviews</a></li>
         <li><a id="edit-sidenav" href="form.html" class="waves-effect"><i class="material-icons left">edit</i>Edit
                 Profile</a></li>
         <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
@@ -76,27 +81,6 @@
     </ul>
 
     <main>
-        <!-- demo card -->
-
-        <!-- <div class="card hoverable profile-card">
-            <a href="#">
-                <div class="row valign-wrapper">
-                    <div class="col s4">
-                        <img class="circle card-user-pic"
-                            src="https://lh5.googleusercontent.com/-YwKMNZThPRY/AAAAAAAAAAI/AAAAAAAAACI/z5Pp24F53-E/photo.jpg?sz=300"
-                            style="width: 100%;">
-                    </div>
-                    <div class="col s8">
-                        <span class="black-text card-name">Ambar Mutha</span><br>
-                        <span class="grey-text text-darken-1 card-prog-discipline">B.tech. (Computer Science)</span>
-                    </div>
-                </div>
-                <div class="card-content grey-text card-about" style="padding: 0px 0.75rem;">
-                    I am a web developer
-                </div>
-            </a>
-        </div> -->
-
         <button class="btn" onclick="showSummernote()">
             Add post
         </button>
@@ -163,7 +147,7 @@
     <script src="auth.js"></script>
     <script src="main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-   
+
 </body>
 
 </html>
