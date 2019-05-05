@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>sign in</title>
+    <title>Aviral vlogs</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -20,26 +20,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
-    
+
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body class="flow-text">
     <!-- Header -->
     <header>
-        <div class="navbar-fixed" style="height: 124px;">
-            <nav class="nav-extended">
+        <div class="navbar-fixed">
+            <nav>
                 <div class="nav-wrapper blue darken-1">
-                    <a href="index.html" class="brand-logo">Aviral vlogs</a>
+                    <a href="index.html" class="brand-logo">Book Reviews</a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <span class="right">
                         <ul class="hide-on-med-and-down">
-                            <li><a href="#" onclick="displayPortfolioOfCurrentUser();"><i
-                                        class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
-                            
+                            <li><a href="discussion.html"><i class="material-icons left">speaker_notes</i>Discussion
+                                    forum
+                                </a></li>
+                            <li><a id="edit-button" href="book-reviews.html"><i class="material-icons left">book</i>Book
+                                    Reviews</a></li>
+                            <li><a href="vod.html"><i class="material-icons left">video_library</i>Video of the Day</a>
+                            </li>
                             <li><a href="#" id="sign-out"
                                     class="waves-effect waves-light btn yellow darken-3 hide-on-log-out">Sign
                                     Out</a></li>
+
                             <li><a href="#" id="sign-in"
                                     class="waves-effect waves-light btn yellow darken-3 hide-on-log-in">Sign
                                     In</a></li>
@@ -47,8 +52,6 @@
                         </ul>
                     </span>
                 </div>
-
-              
             </nav>
         </div>
     </header>
@@ -64,20 +67,58 @@
                 </div>
             </div>
         </li>
-        <li id="sign-in-sidenav" onclick="signIn()" class="hide-on-log-in"><a href="#" class="waves-effect"><i
+        <li id="sign-in-sidenav" class="hide-on-log-in"><a href="login.html" class="waves-effect"><i
                     class="fa fa-2x fa-sign-in left" aria-hidden="true"></i>Sign In</a></li>
         <li><a href="index.html" class="waves-effect"><i class="material-icons left">home</i>Home</a></li>
-        <li><a href="discussion.html" class="waves-effect"><i class="material-icons left">speaker_notes</i>Discussion forum</a></li>
-        <li><a href="#" class="waves-effect" onclick="displayPortfolioOfCurrentUser();"><i
-                    class="material-icons left">collections_bookmark</i>NCERT PDFs</a></li>
-        <li><a id="edit-sidenav" href="vod.html" class="waves-effect"><i class="material-icons left">edit</i>Video of the Day</a></li>
+        <li><a href="discussion.html" class="waves-effect"><i class="material-icons left">speaker_notes</i>Discussion
+                forum</a></li>
+        <li><a id="book-reviews" href="book-reviews.html" class="waves-effect"><i
+                    class="material-icons left">book</i>Book Reviews</a></li>
+        <li><a id="edit-sidenav" href="vod.html" class="waves-effect"><i class="material-icons left">video_library</i>Video of the Day</a></li>
         <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
                     class="fa fa-2x fa-sign-out left" aria-hidden="true"></i>Sign Out</a></li>
     </ul>
 
-    <h5 class="signintitle">Please Sign in to continue</h5>
-    <div id="firebaseui-auth-container"></div>
-    <div id="loader">Loading...</div>
+    <main>
+        <button class="btn" onclick="showSummernote()">
+            Add post
+        </button>
+        <br>
+        <div id="post" style="display:none">
+            <textarea id="summernote" name="editordata"></textarea>
+            <button class="btn" onclick="postData()">Post</button>
+            <span style="display:none;color: green" id="upimg"><br>Uploading image..</span>
+            <span style="display:none;color: green" id="posting"><br>Posting..</span>
+            <span style="display:none;color: green" id="upimg"><br>Uploading image..</span>
+            <span style="display:none" id="postcomplete">Posted succesfully</span>
+        </div>
+
+        <div id="holder">
+            <!-- sample post start -->
+
+        </div>
+        <div id="loading2" class="loading">
+
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="post-footer row">
+            <a onclick="fetchData()">Load More</a>
+        </div>
+    </main>
+
+
     <!--JavaScript at end of body for optimized loading-->
 
     <!-- Firebase App is always required and must be first -->
@@ -92,64 +133,19 @@
         var config = {
             apiKey: "AIzaSyDohZMBbT1TVeDf-zu1B0S3tMXvxbgiL94",
             authDomain: "aviral-vlogs.firebaseapp.com",
-            databaseURL: "https://aviral-vlogs.firebaseio.com",
+            //databaseURL: "https://aviral-vlogs.firebaseio.com",
             projectId: "aviral-vlogs",
             storageBucket: "aviral-vlogs.appspot.com",
-            messagingSenderId: "649916051517"
+            //messagingSenderId: "649916051517"
         };
         firebase.initializeApp(config);
         var storage = firebase.storage();
 
 
     </script>
-    <script src="firebaseui/dist/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="firebaseui/dist/firebaseui.css" />
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems);
-});
-    </script>
+    <script src="auth.js"></script>
+    <script src="vod.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script type="text/javascript">
-        // FirebaseUI config.
-        var uiConfig = {
-            callbacks: {
-   
-    uiShown: function() {
-      // The widget is rendered.
-      // Hide the loader.
-      document.getElementById('loader').style.display = 'none';
-    }
-  },
-  // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-  
-          signInSuccessUrl: 'https://aviral-vlogs.firebaseapp.com',      //to be changed at production
-          signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-          firebase.auth.TwitterAuthProvider.PROVIDER_ID
-            
-          ],
-          // tosUrl and privacyPolicyUrl accept either url string or a callback
-          // function.
-          // Terms of service url/callback.
-          tosUrl: '<your-tos-url>',
-          // Privacy policy url/callback.
-          privacyPolicyUrl: function() {
-            window.location.assign('<your-privacy-policy-url>');
-          }
-        };
-  
-        // Initialize the FirebaseUI Widget using Firebase.
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        // The start method will wait until the DOM is loaded.
-        ui.start('#firebaseui-auth-container', uiConfig);
-      </script>
-    
-    
 
 </body>
 
