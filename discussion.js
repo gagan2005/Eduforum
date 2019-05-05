@@ -30,8 +30,8 @@ fetchData();
 
 function showSummernote() {
 
-    if(!isUserSignedIn()){
-        window.location.href="https://aviral-vlogs.firebaseapp.com/login.html"
+    if (!isUserSignedIn()) {
+        window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html"
     }
     console.log("showing");
     $(document).ready(function () {
@@ -164,10 +164,9 @@ function fetchData() {
         var lastdoc = querySnapshot.docs[9]
         querySnapshot.forEach(function (doc) {
             console.log("fetched succesfully");
-            flag = 1;
             updateuI(doc);
         });
-
+        flag = 1;
         if (flag == 1) {
             $('#loading2').hide();
             $('#loadmore').show();
@@ -195,7 +194,7 @@ function postData() {
                 holder = document.getElementById('holder');
                 holder.insertBefore(createQuestionElement(doc.data(), doc.id), holder.childNodes[0]);
                 $('#ques').hide();
-                $('#summernote').summernote('code','p<br></p>');
+                $('#summernote').summernote('code', 'p<br></p>');
                 $("#posting").hide();
 
 
@@ -227,8 +226,8 @@ function loadallcomments(evt, doc) {
 }
 
 function addcomment(evt, id) {
-    if(!isUserSignedIn()){
-        window.location.href="https://aviral-vlogs.firebaseapp.com/login.html";
+    if (!isUserSignedIn()) {
+        window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html";
         return;
     }
     console.log(id);
