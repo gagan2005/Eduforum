@@ -1,6 +1,6 @@
 .brand-logo {
-  left: 10px;
-  
+  font-size: 25px !important;
+  overflow: hidden;
 }
 
 .user-icon {
