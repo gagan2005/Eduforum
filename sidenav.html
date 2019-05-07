@@ -1,3 +1,26 @@
+ <li>
+            <div class="row valign-wrapper"
+                style="padding: 10px 0px 20px 0px; margin-bottom: 0px; background-image: url('user-bg.jpg');">
+                <img src="user-placeholder.png" class="circle responsive-img col s4 user-pic-sidenav">
+                <div class="col s8 flow-text bold display-name center-align">
+                    Username
+                </div>
+            </div>
+        </li>
+        <li id="sign-in-sidenav" class="hide-on-log-in"><a href="login.html" class="waves-effect"><i
+                    class="fa fa-2x fa-sign-in left" aria-hidden="true"></i>Sign In</a></li>
+        <li><a href="index.html" class="waves-effect"><i class="material-icons left">home</i>Home</a></li>
+        <li><a href="discussion.html" class="waves-effect"><i class="material-icons left">speaker_notes</i>Discussion
+                forum</a></li>
+        <li><a id="book-reviews" href="book-reviews.html" class="waves-effect"><i
+                    class="material-icons left">book</i>Book Reviews</a></li>
+        <li><a href="vod.html" class="waves-effect"><i class="material-icons left">video_library</i>Video of the Day</a>
+        </li>
+        <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
+                    class="fa fa-2x fa-sign-out left" aria-hidden="true"></i>Sign Out</a></li>
+    </ul>
+
+
 var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc = null;
@@ -69,7 +92,7 @@ function sendFile(files, editor, welEditable) {
         // 3 - Generate a public URL for the file.
         return fileSnapshot.ref.getDownloadURL().then((url) => {
             console.log(url);
-            // 4 - Update the chat message placeholder with the imageâ€™s URL.
+            // 4 - Update the chat message placeholder with the image’s URL.
 
             // $('#summernote').summernote('insertImage', url,'kutta');
 
@@ -154,9 +177,9 @@ function updateuI(doc) {
 
 function fetchData() {
     //$('#loading2').show();
-    if (lastdoc) { var query = db.collection("book-reviews").orderBy('time', 'desc').startAfter(lastdoc).limit(10); console.log("lastdoc exists"); }
+    if (lastdoc) { var query = db.collection("new").orderBy('time', 'desc').startAfter(lastdoc).limit(10); console.log("lastdoc exists"); }
     else
-        var query = db.collection("book-reviews").orderBy('time', 'desc').limit(10);
+        var query = db.collection("new").orderBy('time', 'desc').limit(10);
 
 
 
@@ -168,7 +191,9 @@ function fetchData() {
             console.log("fetched succesfully");
             updateuI(doc);
         });
+
         flag = 1;
+
         if (flag == 1) {
             $('#loading2').hide();
             $('#loadmore').show();
@@ -184,7 +209,7 @@ function postData() {
     $("#posting").show();
     var markupStr = $('#summernote').summernote('code');
     console.log(markupStr);
-    db.collection("book-reviews").add({
+    db.collection("new").add({
         html: markupStr, time: firebase.firestore.FieldValue.serverTimestamp(), comments:
             []
     }).
@@ -193,12 +218,6 @@ function postData() {
                 if (doc.exists) {
                     holder = document.getElementById('holder');
                     holder.insertBefore(createPostElement(doc.data(), doc.id), holder.childNodes[0]);
-                    var addMessage = firebase.functions().httpsCallable('addMessage');
-                    addMessage({type: "Book review"}).then(function(result) {
-                      // Read result of the Cloud Function.
-                      console.log(result.succesful);
-                      // ...
-                    });
                     $('#summernote').summernote('code', 'p<br></p>');
                     $('#post').hide();
 
@@ -212,7 +231,12 @@ function postData() {
             });
         });
 
-
+        var addMessage = firebase.functions().httpsCallable('addMessage');
+addMessage({type: "Post"}).then(function(result) {
+  // Read result of the Cloud Function.
+  console.log(result.succesful);
+  // ...
+});
 }
 
 function addcomment(evt, id) {
@@ -223,9 +247,9 @@ function addcomment(evt, id) {
     console.log(id);
     var postElement = document.getElementById(id);
     var commentin = postElement.querySelector('#textarea1').value;
-    db.collection("book-reviews").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: commentin, user: username }) });
+    db.collection("new").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: commentin, user: username }) });
 
-    db.collection("book-reviews").doc(id).get().then(function (doc) { updateuI(doc) });
+    db.collection("new").doc(id).get().then(function (doc) { updateuI(doc) });
 }
 
 function createPostElement(data, docid) {

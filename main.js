@@ -207,6 +207,13 @@ function postData() {
                 console.log("Error getting document:", error);
             });
         });
+
+        var addMessage = firebase.functions().httpsCallable('addMessage');
+addMessage({type: "Post"}).then(function(result) {
+  // Read result of the Cloud Function.
+  console.log(result.succesful);
+  // ...
+});
 }
 
 function addcomment(evt, id) {
