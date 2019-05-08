@@ -195,6 +195,13 @@ function postData() {
         then(function (docRef) {
             docRef.get().then(function (doc) {
                 if (doc.exists) {
+                  
+                    var addMessage = firebase.functions().httpsCallable('addMessage');
+addMessage({type: "Post"}).then(function(result) {
+  // Read result of the Cloud Function.
+  console.log(result.succesful);
+  // ...
+});
                     holder = document.getElementById('holder');
                     holder.insertBefore(createPostElement(doc.data(), doc.id), holder.childNodes[0]);
                     $('#summernote').summernote('code', 'p<br></p>');
@@ -209,18 +216,13 @@ function postData() {
                 console.log("Error getting document:", error);
             });
         });
-        var addToDatabase = firebase.functions().httpsCallable('addToData');
+      /*  var addToDatabase = firebase.functions().httpsCallable('addToData');
         addMessage({type: "Post"}).then(function(result) {
           // Read result of the Cloud Function.
           console.log(result.succesful);
           // ...
-        });
-        var addMessage = firebase.functions().httpsCallable('addMessage');
-addMessage({type: "Post"}).then(function(result) {
-  // Read result of the Cloud Function.
-  console.log(result.succesful);
-  // ...
-});
+        });*/
+        
 }
 
 function addcomment(evt, id) {
