@@ -73,7 +73,8 @@
                 forum</a></li>
         <li><a id="book-reviews" href="book-reviews.html" class="waves-effect"><i
                     class="material-icons left">book</i>Book Reviews</a></li>
-        <li><a id="edit-sidenav" href="vod.html" class="waves-effect"><i class="material-icons left">video_library</i>Video of the Day</a></li>
+        <li><a id="edit-sidenav" href="vod.html" class="waves-effect"><i
+                    class="material-icons left">video_library</i>Video of the Day</a></li>
         <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
                     class="fa fa-2x fa-sign-out left" aria-hidden="true"></i>Sign Out</a></li>
     </ul>
@@ -120,7 +121,10 @@
             </div>
         </div>
         <div class="post-footer row">
-            <a>Load More...</a>
+            <a class="btn-flat waves-effect" onclick="fetchData()">
+                <i class="material-icons left">expand_more</i>
+                Load More
+            </a>
         </div>
 
         <!-- FAB -->
@@ -153,7 +157,7 @@
         };
         firebase.initializeApp(config);
         var storage = firebase.storage();
-  
+
 
 
 
