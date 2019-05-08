@@ -12,6 +12,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 $(document).ready(function () {
     $('textarea#question-title').characterCounter();
+    $('#summernote').summernote({
+        height:100,
+        toolbar: [
+          // [groupName, [list of button]]
+          ['style', ['bold', 'italic', 'underline', 'clear']],
+          ['font', ['strikethrough', 'superscript', 'subscript']],
+          ['fontsize', ['fontsize']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['height', ['height']]
+        ]
+    })
+    ;
 });
 
 const postTemplate = "<div class='post-holder card-panel'>";
@@ -28,47 +41,20 @@ fetchData();
 
 
 
-function showSummernote() {
+function showSummernotee() {
 
-    if (!isUserSignedIn()) {
+   if (!isUserSignedIn()) {
         window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html"
     }
-    console.log("showing");
-    $(document).ready(function () {
-        $('#summernote').summernote(
-            {
-                height: 200,
-                toolbar: [
-                    // [groupName, [list of button]]
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['font', ['strikethrough', 'superscript', 'subscript']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['insert', ['picture']]
-                ]
-            }
-        );
-    });
+    else{
     $('#ques').show();
-
+    }
 }
 
 function post(ih, ts) {
     this.ih;
     this.ts = ts;
 }
-
-$('#summernote').summernote({
-    callbacks: {
-
-
-        onImageUpload: function (files, editor, welEditable) {
-            sendFile(files[0], editor, welEditable);
-        }
-    }
-});
 
 function sendFile(files, editor, welEditable) {
     // upload image to server and create imgNode...
