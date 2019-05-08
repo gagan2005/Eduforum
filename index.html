@@ -76,6 +76,8 @@
                     class="material-icons left">book</i>Book Reviews</a></li>
         <li><a href="vod.html" class="waves-effect"><i class="material-icons left">video_library</i>Video of the Day</a>
         </li>
+        <li><a href="practice-sheets.html" class="waves-effect"><i class="material-icons left">file_copy</i>Practice Sheets</a>
+        </li>
         <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
                     class="fa fa-2x fa-sign-out left" aria-hidden="true"></i>Sign Out</a></li>
     </ul>
@@ -133,7 +135,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-functions.js"></script>
-        <script>
+    <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyDohZMBbT1TVeDf-zu1B0S3tMXvxbgiL94",
@@ -145,7 +147,7 @@
         };
         firebase.initializeApp(config);
         var storage = firebase.storage();
-         var functions = firebase.functions();
+        var functions = firebase.functions();
 
 
 
