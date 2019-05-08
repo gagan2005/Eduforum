@@ -8,6 +8,8 @@ var holder = null;
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems);
+    
+    
 });
 
 const postTemplate = "<div class='post-holder card-panel'>";
@@ -15,6 +17,7 @@ const commentTemplate = "<div class='comment-container row valign-wrapper'>" + "
     + "<div class='col s10 m11'>" +
     "<div class='comment-content'>";
 fetchData();
+
 
 // firebase.initializeApp({
 //     apiKey: 'AIzaSyDohZMBbT1TVeDf-zu1B0S3tMXvxbgiL94',
@@ -25,6 +28,7 @@ fetchData();
 $(document).ready(function () {
     $('#summernote').summernote();
     holder = $("#holder");
+    
 });
 
 
@@ -207,7 +211,12 @@ function postData() {
                 console.log("Error getting document:", error);
             });
         });
-
+        var addToDatabase = firebase.functions().httpsCallable('addToData');
+        addMessage({type: "Post"}).then(function(result) {
+          // Read result of the Cloud Function.
+          console.log(result.succesful);
+          // ...
+        });
         var addMessage = firebase.functions().httpsCallable('addMessage');
 addMessage({type: "Post"}).then(function(result) {
   // Read result of the Cloud Function.
