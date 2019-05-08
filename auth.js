@@ -3,8 +3,8 @@ var userPicSidenavElement = document.querySelector('.user-pic-sidenav');
 var displayNameElement = document.querySelector('.display-name');
 var hideOnLogOutElements = document.querySelectorAll('.hide-on-log-out');
 var hideOnLogInElements = document.querySelectorAll('.hide-on-log-in');
-var username=null;
-var profilePicUrl=null;
+var username = null;
+var profilePicUrl = null;
 
 
 document.getElementById('sign-out').addEventListener('click', signOut);
@@ -42,7 +42,7 @@ function authStateObserver(user) {
     if (user) { // User is signed in!
         // Get the signed-in user's profile pic and name.
         profilePicUrl = getProfilePicUrl();
-        username=getUserName();
+        username = getUserName();
 
         // Set the user's profile pic and name.
         displayNameElement.textContent = user.displayName;
@@ -61,6 +61,9 @@ function authStateObserver(user) {
         hideOnLogInElements.forEach(element => {
             element.classList.add('hide');
         });
+        let addButton = document.getElementById('add-btn');
+        if (user.email == 'aviralfirebase@gmail.com' && addButton)
+            addButton.classList.remove('hide');
     } else { // User is signed out!
         // Hide user's profile and sign-out button.
         userPicElement.classList.add('hide');

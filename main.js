@@ -8,8 +8,6 @@ var holder = null;
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems);
-    
-    
 });
 
 const postTemplate = "<div class='post-holder card-panel'>";
