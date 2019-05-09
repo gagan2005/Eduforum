@@ -38,6 +38,25 @@ fetchData();
 //     authDomain: 'aviral-vlogs.firebaseapp.com',
 //     projectId: 'aviral-vlogs'
 // });
+$('#summernote').summernote({
+    callbacks: {
+
+
+        onImageUpload: function (files, editor, welEditable) {
+            sendFile(files[0], editor, welEditable);
+        }
+    }
+});
+
+$('.summernote').summernote({
+    callbacks: {
+
+
+        onImageUpload: function (files, editor, welEditable) {
+            sendFile(files[0], editor, welEditable);
+        }
+    }
+});
 
 
 
@@ -212,14 +231,16 @@ function loadallcomments(evt, doc) {
 }
 
 function addcomment(evt, id) {
-    if (!isUserSignedIn()) {
+    var markupStr = $('#s'+id).summernote('code');
+    console.log(markupStr);
+   if (!isUserSignedIn()) {
         window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html";
         return;
     }
     console.log(id);
 
-    var markupStr = $('#s'+id).summernote('code');
-   
+    
+   console.log(markupStr);
     db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: markupStr, user: username }) });
 
 
@@ -274,7 +295,17 @@ function loadAns(evt,data,docid)
     
    // $('.summernote').summernote();
     questionElement.querySelector('.summernote').setAttribute('style', 'display:none');
-    $('.summernote').summernote();
+   // $('.summernote').summernote();
+    $('#s'+docid).summernote({
+        callbacks: {
+    
+    
+            onImageUpload: function (files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            }
+        }
+    });
+    
     questionElement.querySelector('.shownote').addEventListener('click', showans.bind(null, null, docid));
    // 
 
