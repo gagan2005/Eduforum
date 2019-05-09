@@ -13,18 +13,18 @@ document.addEventListener('DOMContentLoaded', function () {
 $(document).ready(function () {
     $('textarea#question-title').characterCounter();
     $('#summernote').summernote({
-        height:100,
+        height: 100,
         toolbar: [
-          // [groupName, [list of button]]
-          ['style', ['bold', 'italic', 'underline', 'clear']],
-          ['font', ['strikethrough', 'superscript', 'subscript']],
-          ['fontsize', ['fontsize']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['height', ['height']]
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
         ]
     })
-    ;
+        ;
 });
 
 const postTemplate = "<div class='post-holder card-panel'>";
@@ -58,15 +58,13 @@ $('.summernote').summernote({
     }
 });
 
-
-
 function showSummernotee() {
 
-   if (!isUserSignedIn()) {
+    if (!isUserSignedIn()) {
         window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html"
     }
-    else{
-    $('#ques').show();
+    else {
+        $('#ques').show();
     }
 }
 
@@ -77,8 +75,14 @@ function post(ih, ts) {
 
 function sendFile(files, editor, welEditable) {
     // upload image to server and create imgNode...
-    $('#upimg').show();
+
+    //display toast
     console.log("Uploadeing image to storage..");
+    var toast = M.toast({
+        html: 'Uploading',
+        displayLength: Infinity
+    });
+    
     var filePath = "test" + '/' + files.name;
     storage.ref(filePath).put(files).then(function (fileSnapshot) {
         // 3 - Generate a public URL for the file.
@@ -89,15 +93,10 @@ function sendFile(files, editor, welEditable) {
             // $('#summernote').summernote('insertImage', url,'kutta');
 
             $('#summernote').summernote('insertImage', url, function ($image) {
-
                 $image.attr('class', 'responsive-img');
-                $('#upimg').hide();
+                toast.dismiss();
             });
-
             //editor.insertImage(welEditable, url);
-
-
-
         });
     });
 }
@@ -226,21 +225,19 @@ function loadallcomments(evt, doc) {
         // TODO: Add commenters pic
     }
     postt.querySelector('.post-comments').innerHTML = commentHTML;
-
-
 }
 
 function addcomment(evt, id) {
-    var markupStr = $('#s'+id).summernote('code');
+    var markupStr = $('#s' + id).summernote('code');
     console.log(markupStr);
-   if (!isUserSignedIn()) {
+    if (!isUserSignedIn()) {
         window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html";
         return;
     }
     console.log(id);
 
-    
-   console.log(markupStr);
+
+    console.log(markupStr);
     db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: markupStr, user: username }) });
 
 
@@ -253,11 +250,11 @@ function createQuestionElement(data, docid) {
     var questionElement = document.createElement('div');
     questionElement.id = docid;
     questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="' + data.userpic +
-     '" class="user-pic poster-pic"> <div class="poster-name">' + data.user + 
-     '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div>  <div class="post-comments"> </div><div class="loadans"><a>Load all answers</a></div> </div>';
+        '" class="user-pic poster-pic"> <div class="poster-name">' + data.user +
+        '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div>  <div class="post-comments"> </div><div class="loadans"><a>Load all answers</a></div> </div>';
     questionElement.querySelector('.question-title').textContent = data.title;
     //if (data.comments.length <= 10) questionElement.querySelector('.loadall').setAttribute('style', 'display:none');
-    questionElement.querySelector('.loadans').addEventListener('click', loadAns.bind(null, null, data,docid));
+    questionElement.querySelector('.loadans').addEventListener('click', loadAns.bind(null, null, data, docid));
     //questionElement.querySelector('.sendd').addEventListener('click', addcomment.bind(null, null, docid));
 
     questionElement.querySelector('.post-content').innerHTML = data.html;
@@ -267,58 +264,56 @@ function createQuestionElement(data, docid) {
 
     // TODO: add posters name and pic
 
-   
+
     return questionElement;
 }
 
 
 
-function loadAns(evt,data,docid)
-{
-    var questionElement=document.getElementById(docid);
-    var nn=document.createElement('div');
-    nn.innerHTML='Add your answer <div class="summernote" id="s'+docid+'"></div><button class="postans">Post answer</button>';
+function loadAns(evt, data, docid) {
+    var questionElement = document.getElementById(docid);
+    var nn = document.createElement('div');
+    nn.innerHTML = 'Add your answer <div class="summernote" id="s' + docid + '"></div><button class="postans">Post answer</button>';
     questionElement.appendChild(nn);
     var commentHTML = '';
-    
+
     for (var i = data.comments.length - 1; i >= 0 && i > data.comments.length - 10; i--) {
         var comment = data.comments[i];
         commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>' + comment.user + '</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     }
-    
+
     questionElement.querySelector('.loadans').setAttribute('style', 'display:none');
     questionElement.querySelector('.postans').addEventListener('click', addcomment.bind(null, null, docid));
 
     questionElement.querySelector('.post-comments').innerHTML = commentHTML;
-   
-    
-   // $('.summernote').summernote();
+
+
+    // $('.summernote').summernote();
     questionElement.querySelector('.summernote').setAttribute('style', 'display:none');
-   // $('.summernote').summernote();
-    $('#s'+docid).summernote({
+    // $('.summernote').summernote();
+    $('#s' + docid).summernote({
         callbacks: {
-    
-    
+
+
             onImageUpload: function (files, editor, welEditable) {
                 sendFile(files[0], editor, welEditable);
             }
         }
     });
-    
+
     questionElement.querySelector('.shownote').addEventListener('click', showans.bind(null, null, docid));
-   // 
+    // 
 
 
 }
 
-function showans(docid)
-{
+function showans(docid) {
     console.log("this ran");
     //questionElement.querySelector('.summernote').setAttribute('style', 'display:block');
-    var s='s'+docid;
-    
-    var questionElement=document.getElementById(docid);
+    var s = 's' + docid;
+
+    var questionElement = document.getElementById(docid);
     questionElement.querySelector('.summernote').setAttribute('style', 'display:block');
-    
+
 }

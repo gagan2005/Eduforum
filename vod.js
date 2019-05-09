@@ -55,7 +55,12 @@ $('#summernote').summernote({
 function sendFile(files, editor, welEditable) {
     // upload image to server and create imgNode...
     console.log("Uploadeing image to storage..");
-    $("upimg").show();
+    //display toast
+    console.log("Uploadeing image to storage..");
+    var toast = M.toast({
+        html: 'Uploading',
+        displayLength: Infinity
+    });
     var filePath = "test" + '/' + files.name;
     storage.ref(filePath).put(files).then(function (fileSnapshot) {
         // 3 - Generate a public URL for the file.
@@ -68,7 +73,7 @@ function sendFile(files, editor, welEditable) {
             $('#summernote').summernote('insertImage', url, function ($image) {
 
                 $image.attr('class', 'responsive-img');
-                $("upimg").hide();
+                toast.dismiss();
             });
 
             //editor.insertImage(welEditable, url);
