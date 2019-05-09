@@ -230,11 +230,13 @@ function createQuestionElement(data, docid) {
     console.log("createqueselement is called");
     var questionElement = document.createElement('div');
     questionElement.id = docid;
-    questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="' + data.userpic + '" class="user-pic poster-pic"> <div class="poster-name">' + data.user + '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div> <h4>Answers</h4> <div class="post-comments"> </div><div class="loadall"><a>Load all answers</a></div>  <div class="row valign-wrapper"> <div class="input-field col s10 m11"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">Write a comment</label> </div> <a class="col s2 m1 waves-effect waves-light btn yellow darken-3 sendd"><i class="material-icons">send</i></a> </div> </div>';
+    questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="' + data.userpic +
+     '" class="user-pic poster-pic"> <div class="poster-name">' + data.user + 
+     '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div>  <div class="post-comments"> </div><div class="loadans"><a>Load all answers</a></div> </div>';
     questionElement.querySelector('.question-title').textContent = data.title;
-    if (data.comments.length <= 10) questionElement.querySelector('.loadall').setAttribute('style', 'display:none');
-    questionElement.querySelector('.loadall').addEventListener('click', loadallcomments.bind(null, null, { data: data, id: docid }));
-    questionElement.querySelector('.sendd').addEventListener('click', addcomment.bind(null, null, docid));
+    //if (data.comments.length <= 10) questionElement.querySelector('.loadall').setAttribute('style', 'display:none');
+    questionElement.querySelector('.loadans').addEventListener('click', loadAns.bind(null, null, data,docid));
+    //questionElement.querySelector('.sendd').addEventListener('click', addcomment.bind(null, null, docid));
 
     questionElement.querySelector('.post-content').innerHTML = data.html;
     var date = data.time.toDate();
@@ -243,13 +245,24 @@ function createQuestionElement(data, docid) {
 
     // TODO: add posters name and pic
 
+   
+    return questionElement;
+}
+
+
+
+function loadAns(evt,data,docid)
+{
+
     var commentHTML = '';
+    var questionElement=document.getElementById(docid);
     for (var i = data.comments.length - 1; i >= 0 && i > data.comments.length - 10; i--) {
         var comment = data.comments[i];
         commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>' + comment.user + '</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
     }
-
+    questionElement.querySelector('.loadall').setAttribute('style', 'display:none');
     questionElement.querySelector('.post-comments').innerHTML = commentHTML;
-    return questionElement;
+
+
 }
