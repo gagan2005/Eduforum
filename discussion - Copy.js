@@ -218,7 +218,7 @@ function addcomment(evt, id) {
     }
     console.log(id);
 
-    var markupStr = $('#s'+id).summernote('code');
+    var markupStr = $('#s'+docid).summernote('code');
    
     db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: markupStr, user: username }) });
 
