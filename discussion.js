@@ -83,7 +83,7 @@ function sendFile(files, editor, welEditable) {
         displayLength: Infinity
     });
     
-    var filePath = "test" + '/' + files.name;
+    var filePath = "discussion" + '/' + files.name;
     storage.ref(filePath).put(files).then(function (fileSnapshot) {
         // 3 - Generate a public URL for the file.
         return fileSnapshot.ref.getDownloadURL().then((url) => {
