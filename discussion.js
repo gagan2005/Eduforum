@@ -273,8 +273,8 @@ function createQuestionElement(data, docid) {
 function loadAns(evt, data, docid) {
     var questionElement = document.getElementById(docid);
     var nn = document.createElement('div');
-    nn.innerHTML = 'Add your answer <div class="summernote" id="s' + docid + '"></div><button class="postans">Post answer</button>';
-    questionElement.appendChild(nn);
+    nn.innerHTML = 'Add your answer: <div class="summernote" id="s' + docid + '"></div><a class="postans btn yellow darken-3">Post answer</a>';
+    questionElement.querySelector('.post-holder').appendChild(nn);
     var commentHTML = '';
 
     for (var i = data.comments.length - 1; i >= 0 && i > data.comments.length - 10; i--) {
