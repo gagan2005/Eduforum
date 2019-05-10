@@ -36,6 +36,8 @@ function addSheet() {       // upload file to server
             toast.dismiss();
         });
     });
+
+    hideForm();
 }
 
 function addSheetDoc(url, sheetTitle) {
@@ -48,7 +50,7 @@ function addSheetDoc(url, sheetTitle) {
         docRef.get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data());
-                generateSheetElement(doc.data());
+                generateSheetElement(doc.data(), 'afterbegin');
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -62,14 +64,14 @@ function addSheetDoc(url, sheetTitle) {
     });
 }
 
-function generateSheetElement(data) {
+function generateSheetElement(data, position) {
     var sheetElement = document.createElement('div');
     sheetElement.innerHTML = '<div class="post-holder card-panel"> <div class="row" style="margin-bottom: 0px;"> <div class="col s10 title-div">Sheet 1</div> <div class="col s2"><a target="_blank" class="waves-effect grey-text" href="#"><i class="material-icons">save_alt</i></a></div> </div> </div>';
     sheetElement.querySelector('.title-div').textContent = data.title;
     sheetElement.querySelector('a').href = data.fileURL;
 
     //display element
-    sheetListElement.insertAdjacentElement('afterbegin', sheetElement);
+    sheetListElement.insertAdjacentElement(position, sheetElement);
 }
 
 function fetchData() {
@@ -95,7 +97,7 @@ function fetchData() {
         //console.log(lastdoc);
         querySnapshot.forEach(function (doc) {
             console.log("fetched succesfully");
-            generateSheetElement(doc.data());
+            generateSheetElement(doc.data(), 'beforeend');
         });
 
         flag = 1;
