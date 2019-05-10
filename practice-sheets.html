@@ -41,7 +41,8 @@
                                     Reviews</a></li>
                             <li><a href="vod.html"><i class="material-icons left">video_library</i>Video of the Day</a>
                             </li>
-                            <li><a href="practice-sheets.html"><i class="material-icons left">file_copy</i>Practice sheets</a>
+                            <li><a href="practice-sheets.html"><i class="material-icons left">file_copy</i>Practice
+                                    sheets</a>
                             </li>
                             <li><a href="#" id="sign-out"
                                     class="waves-effect waves-light btn yellow darken-3 hide-on-log-out">Sign
@@ -83,39 +84,64 @@
     </ul>
 
     <main>
-        <button id="add-btn" class="btn hide" onclick="showSummernote()">
-            Add post
-        </button>
-        <br>
-        <div id="post" style="display:none">
-            <textarea id="summernote" name="editordata"></textarea>
-            <button class="btn" onclick="postData()">Post</button>
-            
-            <span style="display:none;color: green" id="posting"><br>Posting..</span>
-            
-            <span style="display:none" id="postcomplete">Posted succesfully</span>
-        </div>
-
-        <div id="holder">
-            <!-- sample post start -->
-            <div class="post-holder card-panel">
-                <div class="row">
-                    <div class="col s10">Sheet 1</div>
-                    <div class="col s2"><a target="_blank" href="https://drive.google.com/file/d/1-_if2oGoZR152IhvX_ucIXrXYgcwS-_u/view?usp=sharing"><i class="material-icons">save_alt</i></a></div>
+        <div id="upload-form" class="post-holder hide">
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn yellow darken-3">
+                        <span>Select File</span>
+                        <input id="file-input" type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
                 </div>
             </div>
-            <div class="post-holder card-panel">
-                <div class="row">
-                    <div class="col s10">Sheet 2</div>
-                    <div class="col s2"><a target="_blank" href="https://firebasestorage.googleapis.com/v0/b/aviral-vlogs.appspot.com/o/IRCTC%20Next%20Generation%20eTicketing%20System.pdf?alt=media&token=27db1653-e1b9-435d-88c1-688498790bfe"><i class="material-icons">save_alt</i></a></div>
+            <div class="row valign-wrapper">
+                <div class="input-field col s10">
+                    <i class="material-icons prefix">title</i>
+                    <input id="sheet-title" type="text" class="validate">
+                    <label for="sheet-title">Sheet Title</label>
                 </div>
+                <a class="btn yellow darken-3 col s2" href="#" onclick="addSheet();"><i
+                        class="material-icons">send</i></a>
             </div>
         </div>
 
+        <!-- sample post start -->
+        <div id="sheet-list">
+            
+        </div>
+
+        <!-- loading indicator -->
+        <div id="loading2" class="loading">
+
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load more btn -->
         <div class="post-footer row">
             <a class="btn-flat waves-effect" onclick="fetchData()">
                 <i class="material-icons left">expand_more</i>
                 Load More
+            </a>
+        </div>
+
+        <!-- FAB -->
+        <div id="add-btn" class="fixed-action-btn hide">
+            <a class="btn-floating btn-large yellow darken-3 waves-effect waves-light" onclick="showForm();">
+                <i class="large material-icons">add</i>
             </a>
         </div>
     </main>
