@@ -75,8 +75,14 @@ function generateSheetElement(data) {
 function fetchData() {
     //$('#loading2').show();
     if (lastdoc) {
+
+        if(lastdoc!="false"){
+
         var query = db.collection("sheets").orderBy('timeStamp', 'desc').startAfter(lastdoc).limit(10);
-        console.log("lastdoc exists");
+        console.log(lastdoc);
+        }
+        else
+        return;
     }
     else
         var query = db.collection("sheets").orderBy('timeStamp', 'desc').limit(10);
@@ -84,7 +90,9 @@ function fetchData() {
     query.get().then(function (querySnapshot) {
         var flag = 0;
         lastdoc = querySnapshot.docs[9];
-
+        if(!lastdoc)lastdoc="false";
+        
+        //console.log(lastdoc);
         querySnapshot.forEach(function (doc) {
             console.log("fetched succesfully");
             generateSheetElement(doc.data());
