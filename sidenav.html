@@ -14,7 +14,7 @@
                 forum</a></li>
         <li><a id="book-reviews" href="book-reviews.html" class="waves-effect"><i
                     class="material-icons left">book</i>Book Reviews</a></li>
-        <li><a href="vod.html" class="waves-effect"><i class="material-icons left">video_library</i>Video of the Day</a>
+        <li><a href="vod.html" class="waves-effect"><i class="material-icons left">video_library</i>Videos</a>
         </li>
         <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
                     class="fa fa-2x fa-sign-out left" aria-hidden="true"></i>Sign Out</a></li>
@@ -92,7 +92,7 @@ function sendFile(files, editor, welEditable) {
         // 3 - Generate a public URL for the file.
         return fileSnapshot.ref.getDownloadURL().then((url) => {
             console.log(url);
-            // 4 - Update the chat message placeholder with the image’s URL.
+            // 4 - Update the chat message placeholder with the imageï¿½s URL.
 
             // $('#summernote').summernote('insertImage', url,'kutta');
 
