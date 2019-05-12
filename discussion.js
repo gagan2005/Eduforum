@@ -240,7 +240,7 @@ function addcomment(evt, id) {
     console.log(markupStr);
     db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: markupStr, user: username }) });
 
-
+    ('#s'+id).summernote.code('');
     db.collection("ques").doc(id).get().then(function (doc) { updateuI(doc) });
 }
 
