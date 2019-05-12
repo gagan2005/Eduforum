@@ -17,9 +17,9 @@ const commentTemplate = "<div class='comment-container row valign-wrapper'>" + "
 fetchData();
 
 // firebase.initializeApp({
-//     apiKey: 'AIzaSyDohZMBbT1TVeDf-zu1B0S3tMXvxbgiL94',
-//     authDomain: 'aviral-vlogs.firebaseapp.com',
-//     projectId: 'aviral-vlogs'
+//     apiKey: 'AIzaSyCnMKBVJr7Vnvng6jSPnAEJCuj2ul4wgjM',
+//     authDomain: 'premium-nuance-240410.firebaseapp.com',
+//     projectId: 'premium-nuance-240410'
 // });
 
 $(document).ready(function () {
@@ -188,7 +188,7 @@ function postData() {
 
 function addcomment(evt, id) {
     if (!isUserSignedIn()) {
-        window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html";
+        window.location.href = "https://premium-nuance-240410.firebaseapp.com/login.html";
         return;
     }
     console.log(id);

@@ -34,9 +34,9 @@ const commentTemplate = "<div class='comment-container row valign-wrapper'>" + "
 fetchData();
 
 // firebase.initializeApp({
-//     apiKey: 'AIzaSyDohZMBbT1TVeDf-zu1B0S3tMXvxbgiL94',
-//     authDomain: 'aviral-vlogs.firebaseapp.com',
-//     projectId: 'aviral-vlogs'
+//     apiKey: 'AIzaSyCnMKBVJr7Vnvng6jSPnAEJCuj2ul4wgjM',
+//     authDomain: 'premium-nuance-240410.firebaseapp.com',
+//     projectId: 'premium-nuance-240410'
 // });
 $('#summernote').summernote({
     callbacks: {
@@ -61,7 +61,7 @@ $('.summernote').summernote({
 function showSummernotee() {
 
     if (!isUserSignedIn()) {
-        window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html"
+        window.location.href = "https://premium-nuance-240410.firebaseapp.com/login.html"
     }
     else {
         $('#ques').show();
@@ -231,7 +231,7 @@ function addcomment(evt, id) {
     var markupStr = $('#s' + id).summernote('code');
     console.log(markupStr);
     if (!isUserSignedIn()) {
-        window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html";
+        window.location.href = "https://premium-nuance-240410.firebaseapp.com/login.html";
         return;
     }
     console.log(id);
@@ -271,6 +271,7 @@ function createQuestionElement(data, docid) {
 
 
 function loadAns(evt, data, docid) {
+    $('.summernote').summernote('destroy');
     var questionElement = document.getElementById(docid);
     var nn = document.createElement('div');
     nn.innerHTML = 'Add your answer: <div class="summernote" id="s' + docid + '"></div><a class="postans btn yellow darken-3">Post answer</a>';
