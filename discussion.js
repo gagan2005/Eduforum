@@ -278,7 +278,7 @@ function loadAns(evt, data, docid) {
     questionElement.querySelector('.post-holder').appendChild(nn);
     var commentHTML = '';
 
-    for (var i = data.comments.length - 1; i >= 0 && i > data.comments.length - 10; i--) {
+    for (var i = data.comments.length - 1; i >= 0; i--) {
         var comment = data.comments[i];
         commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>' + comment.user + '</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
