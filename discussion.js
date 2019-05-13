@@ -1,6 +1,7 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc = null;
+var last=null;
 
 
 
@@ -101,6 +102,16 @@ function sendFile(files, editor, welEditable) {
     });
 }
 
+function closelast()
+{
+
+    if(!last)return;
+    else {
+        console.log("this ran");
+        var postt = document.getElementById(last.id);
+        postt.innerHTML=createQuestionElement(last.data,last.id).innerHTML
+    }
+}
 
 function updateuI(doc) {
 
@@ -216,6 +227,7 @@ function postData() {
 }
 
 function loadallcomments(evt, doc) {
+    
     var data = doc.data;
     var postt = document.getElementById(doc.id);
     var commentHTML = '';
@@ -251,7 +263,7 @@ function createQuestionElement(data, docid) {
     questionElement.id = docid;
     questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="' + data.userpic +
         '" class="user-pic poster-pic"> <div class="poster-name">' + data.user +
-        '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div>  <div class="post-comments"> </div><div class="loadans"><a>Load all answers</a></div> </div>';
+        '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div>  <div class="post-comments"> </div><div class="loadans"><a class="btn yellow darken-3">Load all answers</a></div> </div>';
     questionElement.querySelector('.question-title').textContent = data.title;
     //if (data.comments.length <= 10) questionElement.querySelector('.loadall').setAttribute('style', 'display:none');
     questionElement.querySelector('.loadans').addEventListener('click', loadAns.bind(null, null, data, docid));
@@ -271,6 +283,8 @@ function createQuestionElement(data, docid) {
 
 
 function loadAns(evt, data, docid) {
+    closelast();
+    last={data:data,id:docid};
     $('.summernote').summernote('destroy');
     var questionElement = document.getElementById(docid);
     var nn = document.createElement('div');
