@@ -202,10 +202,10 @@ function postData() {
                 if (doc.exists) {
                   
                     var addMessage = firebase.functions().httpsCallable('addMessage');
-addMessage({type: "Post"}).then(function(result) {
+addMessage({type: "Post",title:document.getElementById('ntitle').value}).then(function(result) {
   // Read result of the Cloud Function.
   console.log(result.succesful);
-  // ...
+  // ..
 });
                     holder = document.getElementById('holder');
                     holder.insertBefore(createPostElement(doc.data(), doc.id), holder.childNodes[0]);

@@ -167,7 +167,7 @@ function postData() {
                     holder = document.getElementById('holder');
                     holder.insertBefore(createPostElement(doc.data(), doc.id), holder.childNodes[0]);
                     var addMessage = firebase.functions().httpsCallable('addMessage');
-                    addMessage({type: "Video"}).then(function(result) {
+                    addMessage({type: "Video",title:document.getElementById('ntitle')}).then(function(result) {
                       // Read result of the Cloud Function.
                       console.log(result.succesful);
                       // ...
