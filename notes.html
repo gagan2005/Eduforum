@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<!-- test -->
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Aviral vlogs</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body class="flow-text">
+    <!-- Header -->
+    <header>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper blue darken-1">
+                    <a href="index.html" class="brand-logo">Notes</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <span class="right">
+                        <ul class="hide-on-med-and-down">
+                            <li><a href="discussion.html"><i class="material-icons left">speaker_notes</i>Discussion
+                                    forum
+                                </a></li>
+                            <li><a id="edit-button" href="book-reviews.html"><i class="material-icons left">book</i>Book
+                                    Reviews</a></li>
+                            <li><a href="vod.html"><i class="material-icons left">video_library</i>Videos</a>
+                            </li>
+                            <li><a href="notes.html"><i class="material-icons left">file_copy</i>Practice
+                                    sheets</a>
+                            </li>
+                            <li><a href="#" id="sign-out"
+                                    class="waves-effect waves-light btn yellow darken-3 hide-on-log-out">Sign
+                                    Out</a></li>
+
+                            <li><a href="login.html" id="sign-in"
+                                    class="waves-effect waves-light btn yellow darken-3 hide-on-log-in">Sign
+                                    In</a></li>
+                            <li><img class="user-icon circle" src="user-placeholder.png"></li>
+                        </ul>
+                    </span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <div class="row valign-wrapper"
+                style="padding: 10px 0px 20px 0px; margin-bottom: 0px; background-image: url('user-bg.jpg');">
+                <img src="user-placeholder.png" class="circle responsive-img col s4 user-pic-sidenav">
+                <div class="col s8 flow-text bold display-name center-align">
+                    Username
+                </div>
+            </div>
+        </li>
+        <li id="sign-in-sidenav" class="hide-on-log-in"><a href="login.html" class="waves-effect"><i
+                    class="fa fa-2x fa-sign-in left" aria-hidden="true"></i>Sign In</a></li>
+        <li><a href="index.html" class="waves-effect"><i class="material-icons left">home</i>Home</a></li>
+        <li><a href="discussion.html" class="waves-effect"><i class="material-icons left">speaker_notes</i>Discussion
+                forum</a></li>
+        <li><a id="book-reviews" href="book-reviews.html" class="waves-effect"><i
+                    class="material-icons left">book</i>Book Reviews</a></li>
+        <li><a href="vod.html" class="waves-effect"><i class="material-icons left">video_library</i>Videos</a>
+        </li>
+        <li id="sign-out-sidenav" class="hide-on-log-out" onclick="signOut()"><a href="#" class="waves-effect"><i
+                    class="fa fa-2x fa-sign-out left" aria-hidden="true"></i>Sign Out</a></li>
+    </ul>
+
+    <main>
+        <div id="upload-form" class="post-holder hide">
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn yellow darken-3">
+                        <span>Select File</span>
+                        <input id="file-input" type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row valign-wrapper">
+                <div class="input-field col s10">
+                    <i class="material-icons prefix">title</i>
+                    <input id="sheet-title" type="text" class="validate">
+                    <label for="sheet-title">Sheet Title</label>
+                </div>
+                <a class="btn yellow darken-3 col s2" href="#" onclick="addSheet();"><i
+                        class="material-icons">send</i></a>
+            </div>
+        </div>
+
+        <!-- sample post start -->
+        <div id="sheet-list">
+            
+        </div>
+
+        <!-- loading indicator -->
+        <div id="loading2" class="loading">
+
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load more btn -->
+        <div class="post-footer row">
+            <a class="btn-flat waves-effect" onclick="fetchData()">
+                <i class="material-icons left">expand_more</i>
+                Load More
+            </a>
+        </div>
+
+        <!-- FAB -->
+        <div id="add-btn" class="fixed-action-btn hide">
+            <a class="btn-floating btn-large yellow darken-3 waves-effect waves-light" onclick="showForm();">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </main>
+
+
+    <!--JavaScript at end of body for optimized loading-->
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-functions.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCnMKBVJr7Vnvng6jSPnAEJCuj2ul4wgjM",
+            authDomain: "premium-nuance-240410.firebaseapp.com",
+            //databaseURL: "https://premium-nuance-240410.firebaseio.com",
+            projectId: "premium-nuance-240410",
+            storageBucket: "premium-nuance-240410.appspot.com",
+            //messagingSenderId: "889683112527"
+        };
+        firebase.initializeApp(config);
+        var storage = firebase.storage();
+        var functions = firebase.functions();
+    </script>
+    <script src="auth.js"></script>
+    <script src="notes.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+
+</html>
