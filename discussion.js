@@ -1,6 +1,7 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc = null;
+var last=null;
 
 
 
@@ -34,9 +35,9 @@ const commentTemplate = "<div class='comment-container row valign-wrapper'>" + "
 fetchData();
 
 // firebase.initializeApp({
-//     apiKey: 'AIzaSyDohZMBbT1TVeDf-zu1B0S3tMXvxbgiL94',
-//     authDomain: 'aviral-vlogs.firebaseapp.com',
-//     projectId: 'aviral-vlogs'
+//     apiKey: 'AIzaSyCnMKBVJr7Vnvng6jSPnAEJCuj2ul4wgjM',
+//     authDomain: 'premium-nuance-240410.firebaseapp.com',
+//     projectId: 'premium-nuance-240410'
 // });
 $('#summernote').summernote({
     callbacks: {
@@ -61,7 +62,7 @@ $('.summernote').summernote({
 function showSummernotee() {
 
     if (!isUserSignedIn()) {
-        window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html"
+        window.location.href = "https://premium-nuance-240410.firebaseapp.com/login.html"
     }
     else {
         $('#ques').show();
@@ -101,6 +102,17 @@ function sendFile(files, editor, welEditable) {
     });
 }
 
+function closelast()
+{
+
+    if(!last)return;
+    else {
+        console.log("this ran");
+        var postt = document.getElementById(last.id);
+        postt.innerHTML=createQuestionElement(last.data,last.id).innerHTML;
+        postt.querySelector('.loadans').addEventListener('click', loadAns.bind(null, null, last.data, last.id));
+    }
+}
 
 function updateuI(doc) {
 
@@ -216,6 +228,7 @@ function postData() {
 }
 
 function loadallcomments(evt, doc) {
+    
     var data = doc.data;
     var postt = document.getElementById(doc.id);
     var commentHTML = '';
@@ -231,7 +244,7 @@ function addcomment(evt, id) {
     var markupStr = $('#s' + id).summernote('code');
     console.log(markupStr);
     if (!isUserSignedIn()) {
-        window.location.href = "https://aviral-vlogs.firebaseapp.com/login.html";
+        window.location.href = "https://premium-nuance-240410.firebaseapp.com/login.html";
         return;
     }
     console.log(id);
@@ -240,7 +253,7 @@ function addcomment(evt, id) {
     console.log(markupStr);
     db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: markupStr, user: username }) });
 
-
+    ('#s'+id).summernote.code('');
     db.collection("ques").doc(id).get().then(function (doc) { updateuI(doc) });
 }
 
@@ -251,7 +264,7 @@ function createQuestionElement(data, docid) {
     questionElement.id = docid;
     questionElement.innerHTML = '<div class="post-holder card-panel"><div class="post-header"> <img src="' + data.userpic +
         '" class="user-pic poster-pic"> <div class="poster-name">' + data.user +
-        '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div>  <div class="post-comments"> </div><div class="loadans"><a>Load all answers</a></div> </div>';
+        '</div> <div class="grey-text smaller-text to-right post-time">Jan 1, 2077</div> </div> <h4 class="question-title">Question title</h4> <div class="post-content"> </div>  <div class="post-comments"> </div><div class="loadans"><a class="btn yellow darken-3">Load all answers</a></div> </div>';
     questionElement.querySelector('.question-title').textContent = data.title;
     //if (data.comments.length <= 10) questionElement.querySelector('.loadall').setAttribute('style', 'display:none');
     questionElement.querySelector('.loadans').addEventListener('click', loadAns.bind(null, null, data, docid));
@@ -271,13 +284,17 @@ function createQuestionElement(data, docid) {
 
 
 function loadAns(evt, data, docid) {
+    console.log('this ran');
+    closelast();
+    last={data:data,id:docid};
+    $('.summernote').summernote('destroy');
     var questionElement = document.getElementById(docid);
     var nn = document.createElement('div');
     nn.innerHTML = 'Add your answer: <div class="summernote" id="s' + docid + '"></div><a class="postans btn yellow darken-3">Post answer</a>';
     questionElement.querySelector('.post-holder').appendChild(nn);
     var commentHTML = '';
 
-    for (var i = data.comments.length - 1; i >= 0 && i > data.comments.length - 10; i--) {
+    for (var i = data.comments.length - 1; i >= 0; i--) {
         var comment = data.comments[i];
         commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>' + comment.user + '</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
         // TODO: Add commenters pic
