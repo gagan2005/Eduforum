@@ -109,7 +109,8 @@ function closelast()
     else {
         console.log("this ran");
         var postt = document.getElementById(last.id);
-        postt.innerHTML=createQuestionElement(last.data,last.id).innerHTML
+        postt.innerHTML=createQuestionElement(last.data,last.id).innerHTML;
+        postt.querySelector('.loadans').addEventListener('click', loadAns.bind(null, null, last.data, last.id));
     }
 }
 
@@ -283,6 +284,7 @@ function createQuestionElement(data, docid) {
 
 
 function loadAns(evt, data, docid) {
+    console.log('this ran');
     closelast();
     last={data:data,id:docid};
     $('.summernote').summernote('destroy');
