@@ -159,9 +159,9 @@ function updateuI(doc) {
 
 function fetchData() {
     //$('#loading2').show();
-    if (lastdoc) { var query = db.collection("book-reviews").orderBy('time', 'desc').startAfter(lastdoc).limit(10); console.log("lastdoc exists"); }
+    if (lastdoc) { var query = db.collection("notes").orderBy('time', 'desc').startAfter(lastdoc).limit(10); console.log("lastdoc exists"); }
     else
-        var query = db.collection("book-reviews").orderBy('time', 'desc').limit(10);
+        var query = db.collection("notes").orderBy('time', 'desc').limit(10);
 
 
 
@@ -189,7 +189,7 @@ function postData() {
     $("#posting").show();
     var markupStr = $('#summernote').summernote('code');
     console.log(markupStr);
-    db.collection("book-reviews").add({
+    db.collection("notes").add({
         html: markupStr, time: firebase.firestore.FieldValue.serverTimestamp(), comments:
             []
     }).
@@ -228,9 +228,9 @@ function addcomment(evt, id) {
     console.log(id);
     var postElement = document.getElementById(id);
     var commentin = postElement.querySelector('#textarea1').value;
-    db.collection("book-reviews").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: commentin, user: username }) });
+    db.collection("notes").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: commentin, user: username }) });
 
-    db.collection("book-reviews").doc(id).get().then(function (doc) { updateuI(doc) });
+    db.collection("notes").doc(id).get().then(function (doc) { updateuI(doc) });
 }
 
 function createPostElement(data, docid) {

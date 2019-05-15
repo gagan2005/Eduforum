@@ -80,14 +80,14 @@ function fetchData() {
 
         if(lastdoc!="false"){
 
-        var query = db.collection("sheets").orderBy('timeStamp', 'desc').startAfter(lastdoc).limit(10);
+        var query = db.collection("notes").orderBy('timeStamp', 'desc').startAfter(lastdoc).limit(10);
         console.log(lastdoc);
         }
         else
         return;
     }
     else
-        var query = db.collection("sheets").orderBy('timeStamp', 'desc').limit(10);
+        var query = db.collection("notes").orderBy('timeStamp', 'desc').limit(10);
 
     query.get().then(function (querySnapshot) {
         var flag = 0;
