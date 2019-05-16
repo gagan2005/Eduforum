@@ -150,7 +150,7 @@ function updateuI(doc) {
 
         // TODO: add posters name and pic
 
-        var commentHTML = '';
+        /*var commentHTML = '';
         for (var i = data.comments.length - 1; i >= 0 && i > data.comments.length - 10; i--) {
             var comment = data.comments[i];
             commentHTML += '<div class="comment-container row valign-wrapper">  <div><div>' + comment.user + '</div> <div class="comment-content">' + comment.comment + '</div> </div> </div>';
@@ -158,7 +158,7 @@ function updateuI(doc) {
         }
 
         postt.querySelector('.post-comments').innerHTML = commentHTML;
-
+            */
     }
 
 
