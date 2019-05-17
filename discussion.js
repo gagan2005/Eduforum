@@ -257,8 +257,9 @@ function addcomment(evt, id) {
     db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: markupStr, user: username }) });
 
     // TODO (Gagan): check the commented line below
-     $('#s' + id).summernote('code','');
+    
     db.collection("ques").doc(id).get().then(function (doc) {
+        $('#s' + id).summernote('code','');
         commentHTML = '<div class="comment-container row valign-wrapper">  <div><div>' + username + '</div> <div class="comment-content">' + markupStr + '</div> </div> </div>';
         document.querySelector('#'+doc.id).querySelector('.post-comments').insertAdjacentHTML('afterbegin', commentHTML);
         toast.dismiss();
