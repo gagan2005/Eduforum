@@ -108,7 +108,8 @@ function closelast() {
     else {
         console.log("this ran");
         var postt = document.getElementById(last.id);
-        postt.innerHTML = createQuestionElement(last.data, last.id).innerHTML
+        postt.innerHTML = createQuestionElement(last.data, last.id).innerHTML;
+        postt.querySelector('.loadans').addEventListener('click', loadAns.bind(null, null, last.data, last.id));
     }
 }
 
@@ -246,6 +247,10 @@ function addcomment(evt, id) {
         window.location.href = "https://premium-nuance-240410.firebaseapp.com/login.html";
         return;
     }
+    var toast = M.toast({
+        html: 'Adding answer',
+        displayLength: Infinity
+    });
     console.log(id);
 
     console.log(markupStr);
@@ -255,7 +260,8 @@ function addcomment(evt, id) {
      $('#s' + id).summernote('code','');
     db.collection("ques").doc(id).get().then(function (doc) {
         commentHTML = '<div class="comment-container row valign-wrapper">  <div><div>' + username + '</div> <div class="comment-content">' + markupStr + '</div> </div> </div>';
-        document.querySelector('#'+doc.id).querySelector('.post-comments').insertAdjacentHTML('afterbegin', commentHTML)
+        document.querySelector('#'+doc.id).querySelector('.post-comments').insertAdjacentHTML('afterbegin', commentHTML);
+        toast.dismiss();
     });
 }
 
