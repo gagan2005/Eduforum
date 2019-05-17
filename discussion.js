@@ -168,15 +168,15 @@ function updateuI(doc) {
 
 function fetchData() {
     $('#loading2').show();
-    if (lastdoc) var query = db.collection("ques").orderBy('time', 'desc').limit(10).startAfter(lastdoc);
+    if (lastdoc) {var query = db.collection("ques").orderBy('time', 'desc').limit(10).startAfter(lastdoc);}
     else
-        var query = db.collection("ques").orderBy('time', 'desc').limit(10);
+        {var query = db.collection("ques").orderBy('time', 'desc').limit(10);}
 
 
 
     query.get().then(function (querySnapshot) {
         var flag = 0;
-        var lastdoc = querySnapshot.docs[9]
+        lastdoc = querySnapshot.docs[9];
         querySnapshot.forEach(function (doc) {
             console.log("fetched succesfully");
             updateuI(doc);
