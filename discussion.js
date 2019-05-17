@@ -261,7 +261,7 @@ function addcomment(evt, id) {
     db.collection("ques").doc(id).get().then(function (doc) {
         $('#s' + id).summernote('code','');
         commentHTML = '<div class="comment-container row valign-wrapper">  <div><div>' + username + '</div> <div class="comment-content">' + markupStr + '</div> </div> </div>';
-        document.querySelector('#'+id).querySelector('.post-comments').insertAdjacentHTML('afterbegin', commentHTML);
+        document.getElementById(id).querySelector('.post-comments').insertAdjacentHTML('afterbegin', commentHTML);
         toast.dismiss();
     });
 }
