@@ -1,7 +1,7 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc = null;
-var last=null;
+var last = null;
 
 
 
@@ -83,7 +83,7 @@ function sendFile(files, editor, welEditable) {
         html: 'Uploading',
         displayLength: Infinity
     });
-    
+
     var filePath = "discussion" + '/' + files.name;
     storage.ref(filePath).put(files).then(function (fileSnapshot) {
         // 3 - Generate a public URL for the file.
@@ -102,14 +102,13 @@ function sendFile(files, editor, welEditable) {
     });
 }
 
-function closelast()
-{
+function closelast() {
 
-    if(!last)return;
+    if (!last) return;
     else {
         console.log("this ran");
         var postt = document.getElementById(last.id);
-        postt.innerHTML=createQuestionElement(last.data,last.id).innerHTML
+        postt.innerHTML = createQuestionElement(last.data, last.id).innerHTML
     }
 }
 
@@ -139,6 +138,7 @@ function updateuI(doc) {
         // button.appendTo(postt);
         postt = createQuestionElement(data, doc.id);
         document.getElementById("holder").appendChild(postt);
+        console.log('child appended');
     }
 
     else {
@@ -227,7 +227,7 @@ function postData() {
 }
 
 function loadallcomments(evt, doc) {
-    
+
     var data = doc.data;
     var postt = document.getElementById(doc.id);
     var commentHTML = '';
@@ -252,8 +252,12 @@ function addcomment(evt, id) {
     console.log(markupStr);
     db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: markupStr, user: username }) });
 
-    ('#s'+id).summernote.code('');
-    db.collection("ques").doc(id).get().then(function (doc) { updateuI(doc) });
+    // TODO (Gagan): check the commented line below
+    // ('#s' + id).summernote.code('');
+    db.collection("ques").doc(id).get().then(function (doc) {
+        commentHTML = '<div class="comment-container row valign-wrapper">  <div><div>' + username + '</div> <div class="comment-content">' + markupStr + '</div> </div> </div>';
+        document.querySelector('#'+doc.id).querySelector('.post-comments').insertAdjacentHTML('afterbegin', commentHTML)
+    });
 }
 
 
@@ -284,7 +288,7 @@ function createQuestionElement(data, docid) {
 
 function loadAns(evt, data, docid) {
     closelast();
-    last={data:data,id:docid};
+    last = { data: data, id: docid };
     $('.summernote').summernote('destroy');
     var questionElement = document.getElementById(docid);
     var nn = document.createElement('div');
