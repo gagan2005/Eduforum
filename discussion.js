@@ -2,8 +2,9 @@ var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc = null;
 var last = null;
-
-
+var noInputToast = null;
+var noQuesTitle = null;
+var noQuesDetail = null;
 
 //Initialize Sidebar
 document.addEventListener('DOMContentLoaded', function () {
@@ -169,9 +170,8 @@ function updateuI(doc) {
 
 function fetchData() {
     $('#loading2').show();
-    if (lastdoc) {var query = db.collection("ques").orderBy('time', 'desc').limit(10).startAfter(lastdoc);}
-    else
-        {var query = db.collection("ques").orderBy('time', 'desc').limit(10);}
+    if (lastdoc) { var query = db.collection("ques").orderBy('time', 'desc').limit(10).startAfter(lastdoc); }
+    else { var query = db.collection("ques").orderBy('time', 'desc').limit(10); }
 
 
 
@@ -194,11 +194,20 @@ function fetchData() {
 }
 
 function postData() {
-
-    $("#posting").show();
-    console.log("posting data..");
     var questitle = $.trim($('#question-title').val());
     var markupStr = $('#summernote').summernote('code');
+    if (!questitle) {
+        if (!noQuesTitle || noQuesTitle.timeRemaining == 0)
+            noQuesTitle = M.toast({ html: 'Please enter question title.' });
+        return;
+    }
+    if (markupStr == '<p><br></p>' || !markupStr) {
+        if (!noQuesDetail || noQuesDetail.timeRemaining == 0)
+            noQuesDetail = M.toast({ html: 'Please enter question detail.' });
+        return;
+    }
+    $("#posting").show();
+    console.log("posting data..");
     console.log(markupStr);
 
     db.collection("ques").add({
@@ -242,6 +251,11 @@ function loadallcomments(evt, doc) {
 
 function addcomment(evt, id) {
     var markupStr = $('#s' + id).summernote('code');
+    if (markupStr == '<p><br></p>' || !markupStr) {
+        if (!noInputToast || noInputToast.timeRemaining == 0)
+            noInputToast = M.toast({ html: 'Please enter a comment.' });
+        return;
+    }
     console.log(markupStr);
     if (!isUserSignedIn()) {
         window.location.href = "https://premium-nuance-240410.firebaseapp.com/login.html";
@@ -257,9 +271,9 @@ function addcomment(evt, id) {
     db.collection("ques").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: markupStr, user: username }) });
 
     // TODO (Gagan): check the commented line below
-    
+
     db.collection("ques").doc(id).get().then(function (doc) {
-        $('#s' + id).summernote('code','');
+        $('#s' + id).summernote('code', '');
         commentHTML = '<div class="comment-container row valign-wrapper">  <div><div>' + username + '</div> <div class="comment-content">' + markupStr + '</div> </div> </div>';
         document.getElementById(id).querySelector('.post-comments').insertAdjacentHTML('afterbegin', commentHTML);
         toast.dismiss();

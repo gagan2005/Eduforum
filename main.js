@@ -2,7 +2,7 @@ var db = firebase.firestore();
 var storage = firebase.storage();
 var lastdoc = null;
 var holder = null;
-
+var noInputToast = null;
 
 //Initialize Sidebar
 document.addEventListener('DOMContentLoaded', function () {
@@ -238,6 +238,11 @@ function addcomment(evt, id) {
     console.log(id);
     var postElement = document.getElementById(id);
     var commentin = postElement.querySelector('#textarea1').value;
+    if (!commentin) {
+        if (!noInputToast || noInputToast.timeRemaining == 0)
+            noInputToast = M.toast({ html: 'Please enter a comment.' });
+        return;
+    }
     db.collection("new").doc(id).update({ comments: firebase.firestore.FieldValue.arrayUnion({ comment: commentin, user: username }) });
 
     db.collection("new").doc(id).get().then(function (doc) { updateuI(doc) });
