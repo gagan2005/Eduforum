@@ -27,7 +27,7 @@ function addSheet() {       // upload file to server
         displayLength: Infinity
     });
     var file = document.getElementById('file-input').files[0];
-    var filePath = "sheets" + '/' + file.name;
+    var filePath = "notes" + '/' + file.name;
     storage.ref(filePath).put(file).then(function (fileSnapshot) {
         // 3 - Generate a public URL for the file.
         return fileSnapshot.ref.getDownloadURL().then((url) => {
@@ -42,7 +42,7 @@ function addSheet() {       // upload file to server
 
 function addSheetDoc(url, sheetTitle) {
     // Add a new document with a generated id.
-    db.collection("sheets").add({
+    db.collection("notes").add({
         fileURL: url,
         title: sheetTitle,
         timeStamp: firebase.firestore.FieldValue.serverTimestamp()
